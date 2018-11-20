@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title>TutorMe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-green">
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+
+
+<!-- !PAGE CONTENT! -->
+<div id = "login_div" 
+class = "w3-display-middle" style="width:25%">
+  <img src = "img/logoTutorMe.png" class = "w3-center" style="width:45%; display:block; margin-left:auto; margin-right:auto">
+  <h1 class = "w3-center"><b>TutorMe</b></h1>
+  <input class="w3-input w3-border" style="margin:3px" type="text" id = "email_field" placeholder="Usuario">
+  <input class="w3-input w3-border" style="margin:3px" type="password" id = "pswd_field" placeholder="Contraseña">
+  <a class="w3-button w3-block w3-light-blue" style="margin:3px" onclick = "login()" >Entrar</a> <!--href="home.html"-->
+  <a class="w3-button w3-block w3-red" style="margin:3px" href="register.html">Registrarse</a>
+</div>
+<!-- End page content -->
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+    authDomain: "tutorme-9b2cb.firebaseapp.com",
+    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+    projectId: "tutorme-9b2cb",
+    storageBucket: "tutorme-9b2cb.appspot.com",
+    messagingSenderId: "616196369980"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src = "login.js"></script>
+
+</body>
+</html>

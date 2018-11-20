@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<title>TutorMe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-green w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px">
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row" style = "padding-bottom: 22px">
+    <div class="w3-col s4">
+      <img src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Bienvenido, <strong>Miguel</strong></span><br>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
+    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
+    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
+    <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+ </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <hr>
+  <!-- Nombre, usuario, correo -->
+  <div class="w3-panel">
+    <div class="w3-row-padding w3-cell-row">
+      <div class="w3-col" style="width:15%">
+        <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+      </div>
+      <div class="w3-rest">
+        <table class="w3-table w3-large">
+          <tr>
+            <td>Andrea Marin Alarcon <button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
+          </tr>
+          <tr>
+            <td>amarina</td>
+          </tr>
+          <tr>
+            <td>Carrera: Matematicas Aplicadas e Ingenieria en Computacion </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+  
+  <hr>
+  
+  <!-- Informacion Adicional -->
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <h5><b>Materias</b></h5>
+      <ul>
+        <li>Calculo III</li>
+        <li>Analisis Matematico I</li>
+        <li>Sistemas Dinamicos I</li>
+      </ul>
+    </div>
+    <div class = "w3-half">
+      <h5><b>Costo por Hora: </b> $300</h5> 
+    </div>
+  </div>
+  
+  <hr>
+
+  <!-- Horarios -->
+  <div class = "w3-container w3-center" style="width: 75%">
+    <h5><b>Horas Disponibles</b></h5>
+    <table class = "w3-table w3-border w3-bordered">
+      <thead>
+        <tr class = "w3-green">
+          <td>Hora</td>
+          <td>Lunes</td>
+          <td>Martes</td>
+          <td>Miercoles</td>
+          <td>Jueves</td>
+          <td>Viernes</td>
+          <td>Sabado</td>
+          <td>Domingo</td>
+        </tr>
+      </thead>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">08:00 - 09:00</td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">09:00 - 10:00</td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">10:00 - 11:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">11:00 - 12:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">12:00 - 13:00</td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">13:00 - 14:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">14:00 - 15:00</td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">15:00 - 16:00</td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">16:00 - 17:00</td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">17:00 - 18:00</td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td class = "w3-light-blue"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">18:00 - 19:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">19:00 - 20:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">20:00 - 21:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="w3-white">
+        <td style="border-right: 1px grey solid">21:00 - 22:00</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <hr>
+  
+  <!-- Reseñas -->
+  <div class = "w3-container">
+    <div class="w3-row">
+      <div class="w3-half">
+        <h5><b>Reseñas</b></h5>
+      </div>
+      <div class="w3-rest w3-right">
+          <button class="w3-button w3-light-blue w3-round-xxlarge">Escribir Reseña</button>
+      </div>
+    </div>
+
+
+      <div class="w3-panel w3-leftbar">
+        <div class="w3-row-padding w3-cell-row">
+          <div class="w3-col" style="width:50px">
+            <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+          </div>
+          <div class="w3-rest">
+            <h5>Miguel Gonzalez Borja</h5>
+          </div>
+          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent justo purus, mattis condimentum metus consectetur, laoreet condimentum dui. Quisque rutrum ante id dignissim pellentesque. Vivamus dignissim dui tortor, vel rhoncus risus tincidunt eget. Donec dictum et risus eget suscipit. Donec venenatis tristique porttitor.</p>
+        </div>
+    </div>
+  <div class="w3-panel w3-leftbar">
+    <div class="w3-row-padding w3-cell-row">
+      <div class="w3-col" style="width:50px">
+        <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+      </div>
+      <div class="w3-rest">
+            <h5>Alejandro Rodriguez Orozco</h5>
+      </div>
+      <p> Cras maximus leo id porta congue. Donec pretium eros aliquet, faucibus mauris in, convallis lorem. Aenean auctor justo a elit rhoncus, in lacinia libero finibus. Aenean sollicitudin tellus non interdum cursus. Mauris vitae felis erat. Cras quis dolor venenatis, tincidunt arcu vel, ultrices enim.</p>
+    </div>
+
+  </div>
+<!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
