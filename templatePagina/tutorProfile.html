@@ -45,29 +45,29 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-  <hr>
-  <!-- Nombre, usuario, correo -->
-  <div class="w3-panel">
-    <div class="w3-row-padding w3-cell-row">
-      <div class="w3-col" style="width:15%">
-        <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
-      </div>
-      <div class="w3-rest">
-        <table class="w3-table w3-large">
-          <tr>
-            <td>Andrea Marin Alarcon <button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
-          </tr>
-          <tr>
-            <td>amarina</td>
-          </tr>
-          <tr>
-            <td>Carrera: Matematicas Aplicadas e Ingenieria en Computacion </td>
-          </tr>
-        </table>
-      </div>
+  <div class = "mode" id = "info">
+    <hr>
+    <!-- Nombre, usuario, correo -->
+    <div class="w3-panel">
+      <div class="w3-row-padding w3-cell-row">
+        <div class="w3-col" style="width:15%">
+          <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+        </div>
+        <div class="w3-rest">
+          <table class="w3-table w3-large">
+            <tr>
+              <td>Andrea Marin Alarcon <button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
+            </tr>
+            <tr>
+              <td>amarina</td>
+            </tr>
+            <tr>
+              <td>Carrera: Matematicas Aplicadas e Ingenieria en Computacion </td>
+            </tr>
+          </table>
+        </div>
     </div>
-    
-  </div>
+  
   
   <hr>
   
@@ -83,6 +83,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class = "w3-half">
       <h5><b>Costo por Hora: </b> $300</h5> 
+      <button class="w3-button w3-light-green w3-round-xxlarge" onclick="changeMode('scheduleApp')">Agendar Cita</button>
     </div>
   </div>
   
@@ -282,12 +283,106 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
       <p> Cras maximus leo id porta congue. Donec pretium eros aliquet, faucibus mauris in, convallis lorem. Aenean auctor justo a elit rhoncus, in lacinia libero finibus. Aenean sollicitudin tellus non interdum cursus. Mauris vitae felis erat. Cras quis dolor venenatis, tincidunt arcu vel, ultrices enim.</p>
     </div>
-
   </div>
-<!-- End page content -->
+  </div>
+  </div>
+  </div>
+
+<div class = "mode" id = "scheduleApp" style="display:none">
+    <button class="w3-button w3-hover-none w3-margin" onclick="changeMode('info')"><i class="material-icons">arrow_back</i></button>
+    <hr>
+  
+  <!-- Informacion Adicional -->
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <h5><b>Andrea Marin Alarcon</b></h5>
+      <select id = "materia" style="padding:3px; width:60%; margin: 3px">
+        <option value = "mat1">Materia 1</option>
+        <option value = "mat2">Materia 2</option>
+      </select>
+    </div>
+    <div class = "w3-half">
+      <h5><b>Costo por Hora: </b> $300</h5> 
+    </div>
+  </div>
+  
+  <div class = "w3-panel w3-padding" id = "schedule">
+    <table id = "schTable" class = "w3-table w3-border w3-bordered">
+        <thead>
+          <tr class = "w3-green">
+            <td>Hora</td>
+            <td>Lunes</td>
+            <td>Martes</td>
+            <td>Miercoles</td>
+            <td>Jueves</td>
+            <td>Viernes</td>
+            <td>Sabado</td>
+            <td>Domingo</td>
+          </tr>
+        </thead>
+      </table>  
+  </div>
+  
+  <button class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
+</div>
+
+  
 </div>
 
 <script>
+var totMat=1;
+
+var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
+var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+var tab = document.getElementById("schTable");
+var row, col, t;
+
+for(i=0; i<14; i++){
+  row = document.createElement("tr");
+  row.id = "at"+hours[i];
+  row.className = "w3-white";
+  col =  document.createElement("td");
+  
+  col.style.borderRight = "1px grey solid";
+  t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
+  col.appendChild(t);
+  row.appendChild(col);
+  for(j=0; j<7; j++){
+    col =  document.createElement("td");
+
+    col.className = "w3-btn w3-white w3-border";
+    
+    col.id = hours[i]+days[j];
+    col.setAttribute("active", "0");
+    col.setAttribute("onclick", "schToggle(this.id)");
+
+    row.appendChild(col);
+  }
+  tab.appendChild(row);
+}
+
+function changeMode(modeid) {
+    var i;
+    var x = document.getElementsByClassName("mode");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    document.getElementById(modeid).style.display = "block";
+}
+
+function schToggle(id){
+  var x = document.getElementById(id);
+  var i = x.className.indexOf("w3-white");
+  if(i == -1){
+    x.className = x.className.replace("w3-light-blue", "w3-white");
+    x.setAttribute("active", "0");
+  }else{
+    x.className = x.className.replace("w3-white", "w3-light-blue");
+    x.setAttribute("active", "1");
+  }
+}
+
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 
