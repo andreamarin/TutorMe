@@ -56,8 +56,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           </table>
   </div>
 
-  <a class="w3-button w3-light-blue w3-margin" onclick = "register()"/>Confirmar</a>
-  <a class="w3-button w3-red w3-margin" href="login.html">Cancelar</a>
+  <a id = "btn_confirm" class="w3-button w3-light-blue w3-margin"/>Confirmar</a>
+  <a id = "btn_cancel" class="w3-button w3-red w3-margin">Cancelar</a>
 </div>
 <!-- End page content -->
 </div>
@@ -136,7 +136,7 @@ function schToggle(id){
 }
 </script>
 
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -150,7 +150,7 @@ function schToggle(id){
   firebase.initializeApp(config);
 </script>
 
-<script src = "register.js"/></script>
+<script src = "reg.js"/></script>
 
 </body>
 </html>

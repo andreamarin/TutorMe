@@ -8,7 +8,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   });
 
-function login(){
+const bttnLogin= document.getElementById("btn_login");
+
+bttnLogin.addEventListener('click', e => {
     var email = document.getElementById("email_field").value;
     var password = document.getElementById("pswd_field").value;
 
@@ -20,5 +22,4 @@ function login(){
         window.alert("Usuario o contraseña incorrectos. "+errorMessage)
         // ...
       });
-
-}
+});

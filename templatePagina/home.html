@@ -35,7 +35,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
     <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
-    <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+    <a id = "btn_logout" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
 
@@ -178,6 +178,23 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+    authDomain: "tutorme-9b2cb.firebaseapp.com",
+    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+    projectId: "tutorme-9b2cb",
+    storageBucket: "tutorme-9b2cb.appspot.com",
+    messagingSenderId: "616196369980"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src = "home.js"/></script>
+
 
 </body>
 </html>
