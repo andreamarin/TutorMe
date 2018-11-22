@@ -9,7 +9,11 @@ busquedaT.addEventListener('keypress', function(e){
     var query = db.ref("/tutores/");
     query.orderByChild("username").equalTo(busquedaT.value).on('child_added', function(snap){
     var a = document.createElement('a');
-    a.href = 'tutorProfile.html';
+    var h = new URL(window.location);
+    var url = new URL('../templatePagina/tutorProfile.html', h);
+    var p = url.searchParams;
+    p.append('tutor',snap.val().username);
+    a.href = url;
     a.className = "w3-bar-item w3-button w3-hover-light-blue";
     a.style = "padding-left:2%";
     a.innerHTML = snap.val().username ;
@@ -62,7 +66,11 @@ function loadTutors(){
   var query = db.ref("/tutores/");
   query.orderByChild("username").on('child_added', function(snap){
   var a = document.createElement('a');
-  a.href = 'tutorProfile.html';
+  var h = new URL(window.location);
+  var url = new URL('../templatePagina/tutorProfile.html', h);
+  var p = url.searchParams;
+  p.append('tutor',snap.val().username);
+  a.href = url;
   a.className = "w3-bar-item w3-button w3-hover-light-blue";
   a.style = "padding-left:2%";
   a.innerHTML = snap.val().username ;

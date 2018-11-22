@@ -32,7 +32,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
+    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
@@ -56,37 +56,34 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="w3-rest">
           <table class="w3-table w3-large">
             <tr>
-              <td>Andrea Marin Alarcon <button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
+              <td id="nombre"><button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
             </tr>
             <tr>
-              <td>amarina</td>
+              <td id="mail"></td>
             </tr>
             <tr>
-              <td>Carrera: Matematicas Aplicadas e Ingenieria en Computacion </td>
+              <td id="carrera"> </td>
             </tr>
           </table>
         </div>
     </div>
-  
-  
+
+
   <hr>
-  
+
   <!-- Informacion Adicional -->
   <div class="w3-row-padding">
     <div class="w3-half">
       <h5><b>Materias</b></h5>
-      <ul>
-        <li>Calculo III</li>
-        <li>Analisis Matematico I</li>
-        <li>Sistemas Dinamicos I</li>
+      <ul id="mat">
       </ul>
     </div>
     <div class = "w3-half">
-      <h5><b>Costo por Hora: </b> $300</h5> 
+      <h5><b id="costo">Costo por Hora: </b> </h5>
       <button class="w3-button w3-light-green w3-round-xxlarge" onclick="changeMode('scheduleApp')">Agendar Cita</button>
     </div>
   </div>
-  
+
   <hr>
 
   <!-- Horarios -->
@@ -249,7 +246,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
 
   <hr>
-  
+
   <!-- Reseñas -->
   <div class = "w3-container">
     <div class="w3-row">
@@ -291,21 +288,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class = "mode" id = "scheduleApp" style="display:none">
     <button class="w3-button w3-hover-none w3-margin" onclick="changeMode('info')"><i class="material-icons">arrow_back</i></button>
     <hr>
-  
+
   <!-- Informacion Adicional -->
   <div class="w3-row-padding">
     <div class="w3-half">
-      <h5><b>Andrea Marin Alarcon</b></h5>
+      <h5><b id="nomSch"></b></h5>
       <select id = "materia" style="padding:3px; width:60%; margin: 3px">
-        <option value = "mat1">Materia 1</option>
-        <option value = "mat2">Materia 2</option>
+
       </select>
     </div>
     <div class = "w3-half">
-      <h5><b>Costo por Hora: </b> $300</h5> 
+      <h5><b id="cS">Costo por Hora: </b> </h5>
     </div>
   </div>
-  
+
   <div class = "w3-panel w3-padding" id = "schedule">
     <table id = "schTable" class = "w3-table w3-border w3-bordered">
         <thead>
@@ -320,13 +316,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <td>Domingo</td>
           </tr>
         </thead>
-      </table>  
+      </table>
   </div>
-  
+
   <button class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
 </div>
 
-  
+
 </div>
 
 <script>
@@ -343,7 +339,7 @@ for(i=0; i<14; i++){
   row.id = "at"+hours[i];
   row.className = "w3-white";
   col =  document.createElement("td");
-  
+
   col.style.borderRight = "1px grey solid";
   t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
   col.appendChild(t);
@@ -352,7 +348,7 @@ for(i=0; i<14; i++){
     col =  document.createElement("td");
 
     col.className = "w3-btn w3-white w3-border";
-    
+
     col.id = hours[i]+days[j];
     col.setAttribute("active", "0");
     col.setAttribute("onclick", "schToggle(this.id)");
@@ -407,6 +403,23 @@ function w3_close() {
 }
 
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+    authDomain: "tutorme-9b2cb.firebaseapp.com",
+    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+    projectId: "tutorme-9b2cb",
+    storageBucket: "tutorme-9b2cb.appspot.com",
+    messagingSenderId: "616196369980"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src = "tutorProfile.js"/></script>
+
 
 </body>
 </html>
