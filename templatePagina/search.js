@@ -111,7 +111,11 @@ function addMat(nomDep){
   bySub.appendChild(divD);
   query.orderByChild("depId").equalTo(nomDep).on('child_added', function(snap){
       var a = document.createElement("a");
-      a.href = "searchMateria.html";
+      var here = new URL(window.location);
+      var url = new URL("../templatePagina/searchMateria.html", here);
+      var p = url.searchParams;
+      p.append('mat', snap.val().id);
+      a.href = url;
       a.className = "w3-bar-item w3-button w3-hover-light-blue";
       a.style = "padding-left:2%";
       a.innerHTML = snap.val().nombre;

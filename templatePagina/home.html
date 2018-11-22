@@ -32,7 +32,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">home</i>  Inicio</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
+    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
     <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = "btn_logout" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
@@ -46,11 +46,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
-  
+
   <!-- Proximas Sesiones -->
-  <div class = "w3-container">
+  <div id="divProx" class = "w3-container">
   <h5><i class="material-icons">calendar_today</i><b>  Proximas Sesiones</b></h5>
-      <table class="w3-table-all">
+      <table id="prox" class="w3-table-all">
           <thead>
               <tr class = "w3-blue">
                 <th>Tutor</th>
@@ -83,11 +83,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           </tr>
       </table>
   </div>
-  
+
   <hr>
-  
+
   <!-- Sesiones Pendientes -->
-  <div class = "w3-container">
+  <div id="divPend" class = "w3-container">
   <h5><i class="material-icons">create</i><b>  Pendientes</b></h5>
       <table class="w3-table-all">
           <thead>
@@ -118,11 +118,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           </tr>
       </table>
   </div>
-  
+
   <hr>
-  
+
     <!-- Tutores Recientes -->
-  <div class = "w3-container">
+  <div id="divReci" class = "w3-container">
   <h5><i class="material-icons">person</i><b>  Tutores Recientes</b></h5>
       <table class="w3-table-all">
           <thead>
@@ -149,7 +149,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <td><button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button></td>
           </tr>
       </table>
-      
+
   </div>
   <!-- End page content -->
 </div>
