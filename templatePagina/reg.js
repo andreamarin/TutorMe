@@ -1,5 +1,5 @@
-var btnCancel, btnConfirm;
-var user, email, pswd, pswd2, carrera, cu, username;
+var btnCancel, btnConfirm, btnUpload;
+var user, email, pswd, pswd2, carrera, cu, username, file;
 var db;
 var tutor, precio;
 var materias = [];
@@ -9,6 +9,7 @@ var horarios = [];
     // Get elements
     btnConfirm = document.getElementById("btn_confirm");
     btnCancel = document.getElementById("btn_cancel");
+    btnUpload = document.getElementById("btn_upload");
     ifTutor = document.getElementById("ifTutor");
 
     db = firebase.database();
@@ -116,8 +117,8 @@ function get_elements(){
     username = email.split("@")[0];
 
     tutor = ifTutor.style.display === "block";
-    var horas = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
-    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    //var horas = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
+    //var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
     if(tutor){
         precio = document.getElementById("rate").value;
@@ -131,7 +132,7 @@ function get_elements(){
 
         var h;
         days.forEach(function(day) {
-            horas.forEach(function(hrs){
+            hours.forEach(function(hrs){
                 horario = hrs+day;
                 h = document.getElementById(horario).getAttribute('active');
                 if(h === "1"){
@@ -194,6 +195,11 @@ btnCancel.addEventListener('click', e => {
     window.location.href = "index.html";
 });
 
+btnUpload.addEventListener('change', e => {
+    // Get file
+    file = e.target.files[0];
+});
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         upload();
@@ -203,7 +209,27 @@ firebase.auth().onAuthStateChanged(function(user) {
 function upload(){
     var usr = firebase.auth().currentUser;
     var uid = usr.uid;
-    
+    console.log(file.name);
+    // Upload profile picture
+    var aux = (file.name).split('.');
+    var extension = aux[aux.length-1];
+    console.log(extension);
+    var filename = username+'.'+extension;
+    console.log(filename);
+    var storageRef = firebase.storage().ref('profile_pictures/'+filename);
+    var task = storageRef.put(file);
+
+    task.on('state_changed',
+        function error(err){
+            console.log(err.message);
+            window.alert("Registro fallido");
+            break;
+        },
+        function complete(){
+            window.alert("Carga completa");
+        }
+    );
+
     if(tutor){
         db.ref('tutores/'+username).set({
             nombre: user,
@@ -212,14 +238,16 @@ function upload(){
             rate: precio,
             materias: materias,
             horarios: horarios,
-            username: username
+            username: username,
+            pp_path: filename
         });
     }else{
         db.ref('alumnos/'+username).set({
             nombre: user,
             username: username,
             carrera: carrera,
-            clave_unica: cu
+            clave_unica: cu,
+            pp_path: filename
         });
     }  
     
@@ -228,5 +256,5 @@ function upload(){
     });
 
     window.alert("Registro existoso.");
-    window.location.href = "index.html";
+    //window.location.href = "index.html";
 }
