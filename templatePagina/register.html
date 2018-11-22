@@ -32,8 +32,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-row">
       <div id="materias" class = "w3-half">
         <select id = "materia0" style="padding:3px; width:60%; margin: 3px">
-          <option value = "mat1">Materia 1</option>
-          <option value = "mat2">Materia 2</option>
         </select>
       </div>
       <div class="w3-half">
@@ -64,88 +62,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </div>
 <!-- End page content -->
 </div>
-
-<script>
-var totMat=1;
-
-var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
-var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-var tab = document.getElementById("schTable");
-var row, col, t;
-
-for(i=0; i<14; i++){
-  row = document.createElement("tr");
-  row.id = "at"+hours[i];
-  row.className = "w3-white";
-  col =  document.createElement("td");
-  
-  col.style.borderRight = "1px grey solid";
-  t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
-  col.appendChild(t);
-  row.appendChild(col);
-  for(j=0; j<7; j++){
-    col =  document.createElement("td");
-
-    col.className = "w3-btn w3-white w3-border";
-    
-    col.id = hours[i]+days[j];
-    col.setAttribute("active", "0");
-    col.setAttribute("onclick", "schToggle(this.id)");
-
-    row.appendChild(col);
-  }
-  tab.appendChild(row);
-}
-
-function toggle(modeid) {
-    
-    var x = document.getElementById(modeid);
-    if(x.style.display == "none"){
-        x.style.display = "block";
-    }else{
-        x.style.display = "none";
-    }
-}
-
-function addMat(){
-    var mat = document.createElement("select");
-    mat.style.padding = "3px";
-    mat.style.width = "60%";
-    mat.style.margin = "3px";
-    mat.id = "materia"+ (totMat++);
-    
-    var elem = document.createElement("option");
-    elem.value = "mat1";
-    elem.text = "Materia 1";
-    mat.appendChild(elem);
-    var elem2 = document.createElement("option");
-    elem2.value = "mat2";
-    elem2.text = "Materia 2";
-    mat.appendChild(elem2);
-    
-    document.getElementById("materias").appendChild(mat);
-
-}
-
-function removeMat(){
-    if(totMat>1){
-        document.getElementById("materia"+ (--totMat)).remove();
-    }
-}
-
-function schToggle(id){
-  var x = document.getElementById(id);
-  var i = x.className.indexOf("w3-white");
-  if(i == -1){
-    x.className = x.className.replace("w3-light-blue", "w3-white");
-    x.setAttribute("active", "0");
-  }else{
-    x.className = x.className.replace("w3-white", "w3-light-blue");
-    x.setAttribute("active", "1");
-  }
-}
-</script>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script>
