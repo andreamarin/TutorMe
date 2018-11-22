@@ -63,18 +63,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
               </div>
             </div>
         </div>
-        <button onclick="expand('dept1')" class="w3-button w3-block w3-left-align w3-green">Matematicas</button>
-        <div id="dept1" class="w3-bar-block w3-hide">
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Calculo I</a>
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Calculo II</a>
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Calculo III</a>
-        </div>
-        <button onclick="expand('dept2')" class="w3-button w3-block w3-left-align w3-green">Computacion</button>
-        <div id="dept2" class="w3-bar-block w3-hide">
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Algoritmos y Programas</a>
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Estructuras de Datos</a>
-          <a href="searchMateria.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Inteligencia Artificial</a>
-        </div>
+
     </div>
   </div>
 
@@ -92,7 +81,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           </div>
 
           <div class="w3-bar-block " id ="tutores">
-            
+
           </div>
       </div>
   </div>
@@ -123,14 +112,6 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 
-function expand(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
 
 function changeMode(modeid) {
     var i;
