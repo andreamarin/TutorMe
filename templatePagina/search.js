@@ -2,12 +2,12 @@
 const busquedaT = document.getElementById("busquedaTut");
 
 busquedaT.addEventListener('keypress', function(e){
-  if(e.key == "Enter"){
+  if(e.key == "Enter" && busquedaT.value != ''){
     while(divT.hasChildNodes()){
       divT.removeChild(divT.lastChild);
     }
     var query = db.ref("/tutores/");
-    query.orderByChild("username").startAt(busquedaT.value).on('child_added', function(snap){
+    query.orderByChild("username").equalTo(busquedaT.value).on('child_added', function(snap){
     var a = document.createElement('a');
     a.href = 'tutorProfile.html';
     a.className = "w3-bar-item w3-button w3-hover-light-blue";
@@ -17,9 +17,46 @@ busquedaT.addEventListener('keypress', function(e){
     return;
   });
 }else{
-  return;
+  if(busquedaT.value == ''){
+    while(divT.hasChildNodes()){
+      divT.removeChild(divT.lastChild);
+    }
+    loadTutors();
+  }
 }
+return;
 });
+
+const bus = document.getElementById("busqueda");
+
+busqueda.addEventListener('keypress', function(e){
+  if(e.key == "Enter" && bus.value != ''){
+    while(bySub.hasChildNodes()){
+      bySub.removeChild(bySub.lastChild);
+    }
+    var query = db.ref("/materias/");
+    query.orderByChild("nombre").equalTo(busqueda.value).on('child_added', function(snap){
+      var a = document.createElement("a");
+      a.href = "searchMateria.html";
+      a.className = "w3-bar-item w3-button w3-hover-light-blue";
+      a.style = "padding-left:2%";
+      a.innerHTML = snap.val().nombre;
+      bySub.appendChild(a);
+      return;
+    });
+  }
+  else {
+    if(bus.value == ''){
+      while(bySub.hasChildNodes()){
+        bySub.removeChild(bySub.lastChild);
+      }
+      loadMaterias();
+    }
+  }
+ return;
+
+});
+
 
 function loadTutors(){
   var query = db.ref("/tutores/");
@@ -79,6 +116,6 @@ function addMat(nomDep){
 
 var db = firebase.database();
 const divT = document.getElementById("tutores");
-const bySub = document.getElementById("bySubject");
+const bySub = document.getElementById("materias");
 loadTutors();
 loadMaterias();
