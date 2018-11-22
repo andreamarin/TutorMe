@@ -47,13 +47,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
   <div class = "w3-panel">
   <h5><b>Mis Datos</b></h5>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Usuario"><br>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Correo"><br>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Contraseña"><br>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Repetir Contraseña"><br>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Carrera"><br>
-  <input class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Clave Unica"><br>
-  <b>Tutor: </b> <input class="w3-check" type="checkbox" onclick="toggle('ifTutor')"> <br>
+  <input id = 'usr_field' class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Nombre"><br>
+  <input id = 'pswd_field' class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Contraseña"><br>
+  <input id = 'pswd2_field' class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Repetir Contraseña"><br>
+  <input id = 'carrera_field' class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Carrera"><br>
+  <b id = "tag_tutor" style = "display:none" >Tutor: </b> <input class="w3-check" type="checkbox" onclick="toggle('ifTutor')" style = "display:none"> <br>
   
   <div id = "ifTutor" style="display:none">
     <b>Materias</b><br>
@@ -84,7 +82,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           </table>
   </div>
 
-  <a class="w3-button w3-light-blue w3-margin" href="profile.html">Confirmar</a>
+  <a id = 'btn_confirm' class="w3-button w3-light-blue w3-margin">Confirmar</a>
   <a class="w3-button w3-red w3-margin" href="profile.html">Cancelar</a>
   </div>
 </div>
