@@ -22,7 +22,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row" style = "padding-bottom: 22px">
     <div class="w3-col s4">
-      <img src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img id = "img_holder" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
       <span>Bienvenido, <strong>Miguel</strong></span><br>
@@ -80,7 +80,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class = "w3-half">
       <h5><b id="costo">Costo por Hora: </b> </h5>
-      <button class="w3-button w3-light-green w3-round-xxlarge" onclick="changeMode('scheduleApp')">Agendar Cita</button>
+      <button id = 'btn_agendar' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge" onclick="changeMode('scheduleApp')">Agendar Cita</button>
     </div>
   </div>
 
@@ -319,7 +319,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </table>
   </div>
 
-  <button class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
+  <button id = 'btn_cita' class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
 </div>
 
 
