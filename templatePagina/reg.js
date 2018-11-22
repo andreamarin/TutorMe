@@ -157,8 +157,8 @@ btnConfirm.addEventListener('click', e => {
             }
     }
     
-    if(!email.includes("@itam")){
-        window.alert("Debes ingresar tu correo del ITAM");
+    if(/^\w+@itam\.mx$/i.test(email)){
+        window.alert("Debes ingresar un correo válido del ITAM");
         return;
     }
     
@@ -179,6 +179,7 @@ btnConfirm.addEventListener('click', e => {
     const promise = firebase.auth().createUserWithEmailAndPassword(email, pswd);
     promise
         .then(user => {
+            upload();
             /*
             var usr = firebase.auth().currentUser;
             usr.sendEmailVerification().then(function() {
@@ -200,35 +201,31 @@ btnUpload.addEventListener('change', e => {
     file = e.target.files[0];
 });
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        upload();
-    }
-});
-
 function upload(){
+    if(file){
+        window.alert('Hay pp');
+
+        // Upload profile picture
+        var aux = (file.name).split('.');
+        var extension = aux[aux.length-1];
+        var filename = username+'.'+extension;
+        console.log(filename);
+    
+        var storageRef = firebase.storage().ref('profile_pictures/'+filename);
+        const task = storageRef.put(file);
+        task.then(e => {
+            upload_db(filename);
+        })
+        .catch(err => {
+            console.log(err.message) });
+    }else{
+        upload_db('none');
+    }
+}
+
+function upload_db(filename){
     var usr = firebase.auth().currentUser;
     var uid = usr.uid;
-    console.log(file.name);
-    // Upload profile picture
-    var aux = (file.name).split('.');
-    var extension = aux[aux.length-1];
-    console.log(extension);
-    var filename = username+'.'+extension;
-    console.log(filename);
-    var storageRef = firebase.storage().ref('profile_pictures/'+filename);
-    var task = storageRef.put(file);
-
-    task.on('state_changed',
-        function error(err){
-            console.log(err.message);
-            window.alert("Registro fallido");
-            break;
-        },
-        function complete(){
-            window.alert("Carga completa");
-        }
-    );
 
     if(tutor){
         db.ref('tutores/'+username).set({
@@ -251,10 +248,13 @@ function upload(){
         });
     }  
     
+    var val_tutor = tutor ? 1:0;
+
     db.ref('usernames/'+uid).set({
-        username: username
+        username: username,
+        esTutor: val_tutor
     });
 
-    window.alert("Registro existoso.");
-    //window.location.href = "index.html";
+    window.alert('Registro exitoso');
+    window.location.href = 'index.html';
 }
