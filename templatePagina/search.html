@@ -32,7 +32,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
+    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
@@ -45,12 +45,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-  
+
   <div class="w3-bar w3-grey">
     <button class="w3-bar-item w3-button" onclick="changeMode('bySubject')">Por Materia</button>
     <button class="w3-bar-item w3-button" onclick="changeMode('byName')">Por Nombre</button>
-  </div> 
-  
+  </div>
+
   <div id = "bySubject" class = "mode">
     <div class="w3-panel">
         <div class="w3-panel w3-padding">
@@ -59,7 +59,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                 <i class="material-icons">search</i>
               </div>
               <div class = "w3-rest">
-                <input class="w3-input w3-border-0" type="text">
+                <input id="busqueda" class="w3-input w3-border-0" type="text">
               </div>
             </div>
         </div>
@@ -86,16 +86,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                   <i class="material-icons">search</i>
                 </div>
                 <div class = "w3-rest">
-                  <input class="w3-input w3-border-0" type="text">
+                  <input class="w3-input w3-border-0" type="text" id = "busquedaTut">
                 </div>
               </div>
           </div>
-          
-          <div class="w3-bar-block ">
-            <a href="tutorProfile.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Paola Del Hierro Haro</a>
-            <a href="tutorProfile.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Andrea Marin Alarcon</a>
-            <a href="tutorProfile.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Mario Montes Vidal</a>
-            <a href="tutorProfile.html" class = "w3-bar-item w3-button w3-hover-light-blue" style = "padding-left:2%">Alejandro Rodriguez Orozco</a>
+
+          <div class="w3-bar-block " id ="tutores">
+            
           </div>
       </div>
   </div>
@@ -144,6 +141,22 @@ function changeMode(modeid) {
     document.getElementById(modeid).style.display = "block";
 }
 </script>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+    authDomain: "tutorme-9b2cb.firebaseapp.com",
+    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+    projectId: "tutorme-9b2cb",
+    storageBucket: "tutorme-9b2cb.appspot.com",
+    messagingSenderId: "616196369980"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src = "search.js"/></script>
 
 </body>
 </html>
