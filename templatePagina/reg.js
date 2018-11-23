@@ -156,7 +156,8 @@ btnConfirm.addEventListener('click', e => {
             }
     }
     
-    if(/^\w+@itam\.mx$/i.test(email)){
+    //if(/^\w+@itam\.mx$/i.test(email)){
+    if(email.includes('@itam.mx')){
         window.alert("Debes ingresar un correo válido del ITAM");
         return;
     }
