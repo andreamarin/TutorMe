@@ -68,7 +68,7 @@ db.ref("/tutores/").on("child_added", function(t){
       a.href = url;
       a.className = "w3-bar-item w3-button w3-hover-light-blue";
       a.style = "padding-left:2%";
-      a.innerHTML = t.val().username ;
+      a.innerHTML = t.val().nombre;
       tutores.appendChild(a);
     }
   }

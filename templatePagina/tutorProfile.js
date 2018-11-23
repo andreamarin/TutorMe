@@ -106,7 +106,7 @@ if(p.has('tutor')){
 
 function load_profile(idT){
     db.ref("tutores/"+idT).on("value", function(snap){
-        user = snap.val();
+        var user = snap.val();
         nom.innerHTML = user.nombre + nom.innerHTML; //Cambiar por nombre
         mail.innerHTML = 'Correo: '+idT+'@itam.mx' //Cambiar por correo
         carr.innerHTML =  "Carrera: " + user.carrera;
@@ -140,7 +140,7 @@ function load_profile(idT){
             var storage = firebase.storage();
             var pathReference = storage.ref('profile_pictures/');
             var manRef = pathReference.child(user.pp_path);
-        
+
             manRef.getDownloadURL().then(function(url){
                 var img_holder = document.getElementById("img_holder");
                 var menu_pp = document.getElementById("menu_pp");
@@ -244,6 +244,7 @@ function upload_sesion(sesId){
     db.ref('sesiones/'+sesId).set({
         idTutor: p.get('tutor'),
         uidAlumno: firebase.auth().currentUser.uid,
+        materia: ddl.value,
         fecha: new Date(document.getElementById('dd_fecha').value),
         horario: document.getElementById('dd_horario').value,
         aceptada: 0
