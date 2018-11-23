@@ -26,7 +26,7 @@ matRef.on("value", function(snapshot){
   console.log("Read fail: " + errorObject.code)
 });
 
-var totMat=1;
+var totMat=0;
   
 var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
 var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -116,22 +116,19 @@ function get_elements(){
     username = email.split("@")[0];
 
     tutor = ifTutor.style.display === "block";
-    //var horas = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
-    //var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    var horas = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
+    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
     if(tutor){
         precio = document.getElementById("rate").value;
-        var mat_dd = document.getElementById("materia0");
-        var i = 0;
-        do{
-            materias.push(mat_dd.options[mat_dd.selectedIndex].value);
-            i++;
-            mat_dd = document.getElementById("materia"+i);
-        }while(mat_dd != null);
+        var mats = document.getElementById("materias").childNodes;
+        for(var i = 1; i < mats.length; i++){
+            materias.push(mats[i].value);
+        }
 
         var h;
         days.forEach(function(day) {
-            hours.forEach(function(hrs){
+            horas.forEach(function(hrs){
                 horario = hrs+day;
                 h = document.getElementById(horario).getAttribute('active');
                 if(h === "1"){

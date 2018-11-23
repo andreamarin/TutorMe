@@ -49,7 +49,6 @@ firebase.auth().onAuthStateChanged(function(user){
 
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
-
 var mat = p.get('mat');
 
 db.ref("/materias/").orderByChild("id").equalTo(mat).on("child_added", function(s){
@@ -58,6 +57,7 @@ db.ref("/materias/").orderByChild("id").equalTo(mat).on("child_added", function(
 });
 
 db.ref("/tutores/").on("child_added", function(t){
+  console.log(t.val().materias);
   for(let m of t.val().materias){
     if(m == mat){
       var a = document.createElement('a');

@@ -14,7 +14,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-green w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px">
 </div>
 
@@ -30,11 +30,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   <hr>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
-    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
+    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
+    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
@@ -45,7 +45,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-  <div class = "mode" id = "info">
+  <div class = "modeInfo" id = "info">
     <hr>
     <!-- Nombre, usuario, correo -->
     <div class="w3-panel">
@@ -108,7 +108,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
 
   <!-- Reseñas -->
-  <div class = "w3-container">
+  <div id = 'reviews' class = "w3-container">
     <div class="w3-row">
       <div class="w3-half">
         <h5><b>Reseñas</b></h5>
@@ -121,9 +121,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
       <div class="w3-panel w3-leftbar">
         <div class="w3-row-padding w3-cell-row">
-          <div class="w3-col" style="width:50px">
-            <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
-          </div>
           <div class="w3-rest">
             <h5>Miguel Gonzalez Borja</h5>
           </div>
@@ -132,9 +129,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
   <div class="w3-panel w3-leftbar">
     <div class="w3-row-padding w3-cell-row">
-      <div class="w3-col" style="width:50px">
-        <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
-      </div>
       <div class="w3-rest">
             <h5>Alejandro Rodriguez Orozco</h5>
       </div>
@@ -145,7 +139,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   </div>
 
-<div class = "mode" id = "scheduleApp" style="display:none">
+<div class = "modeSch" id = "scheduleApp" style="display:none">
     <button class="w3-button w3-hover-none w3-margin" onclick="changeMode('info')"><i class="material-icons">arrow_back</i></button>
     <hr>
 
@@ -186,7 +180,6 @@ function changeMode(modeid) {
     }
     document.getElementById(modeid).style.display = "block";
 }
-
 function schToggle(id){
   var x = document.getElementById(id);
   var i = x.className.indexOf("w3-white");
@@ -198,13 +191,10 @@ function schToggle(id){
     x.setAttribute("active", "1");
   }
 }
-
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
-
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
-
 // Toggle between showing and hiding the sidebar, and add overlay effect
 function w3_open() {
     if (mySidebar.style.display === 'block') {
@@ -215,13 +205,11 @@ function w3_open() {
         overlayBg.style.display = "block";
     }
 }
-
 // Close the sidebar with the close button
 function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
-
 </script>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>

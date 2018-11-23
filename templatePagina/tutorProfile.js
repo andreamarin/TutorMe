@@ -8,9 +8,10 @@ var cstoS = document.getElementById("cS");
 var ddl = document.getElementById("materia");
 var ddl_fechas = document.getElementById("dd_fecha");
 var ddl_horarios = document.getElementById("dd_horario");
+var reviews_table = document.getElementById("reviews");
 var db = firebase.database();
 var ref_horarios = {'Mon':[], 'Tue':[], 'Wed':[], 'Thu':[], 'Fri':[], 'Sat':[], 'Sun':[]};
-
+var btnEscribir = document.getElementById('btn_escribir');
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
 
@@ -92,6 +93,7 @@ if(p.has('tutor')){
     var idT = p.get("tutor");
     load_profile(idT);
 }else{
+    btnEscribir.style.display = "none";
     firebase.auth().onAuthStateChanged(function(user) {
         ref = db.ref('usernames/'+user.uid);
         ref.on("value", function(snapshot){
@@ -102,6 +104,7 @@ if(p.has('tutor')){
         });
     });
     btnAgendar.style.display = "none";
+    btnCita.style.display = "none";
 }
 
 function load_profile(idT){
@@ -147,20 +150,67 @@ function load_profile(idT){
                 img_holder.src = url;
             });
         }
+    });
+    
+    db.ref('reviews/'+idT).on("value", function(snap){
+        var storage = firebase.storage();
+        var reviews = snap.val();
+        console.log(reviews);
+        if(reviews){
+            for(let r of reviews){
+                var div0 = document.createElement('div');
+                div0.setAttribute('class', 'w3-panel w3-leftbar');
 
-        return;
+                var divInfo = document.createElement('div');
+                divInfo.setAttribute('class', 'w3-row-padding w3-cell-row');
+
+                var divNom = document.createElement('div');
+                divNom.setAttribute('class', 'w3-rest');
+                var nom = document.createElement('h5');
+                nom.innerHTML = '<b>'+r.alumno+'</b>';
+                divNom.appendChild(nom);
+
+                var rev = document.createElement('p');
+                rev.innerHTML = r.review;
+      
+                divInfo.appendChild(divNom);
+                divInfo.appendChild(rev);
+
+                div0.appendChild(divInfo);
+
+                reviews_table.appendChild(div0);
+            }
+        }
     });
 }
 
-btnCita.addEventListener('click', e=>{
+function changeMode(modeid) {
+    console.log('change');
     var i;
-    var x = document.getElementsByClassName("mode");
+    var class_name = modeid === 'info' ? "modeSch" : "modeInfo";
+    var x = document.getElementsByClassName(class_name);
+    console.log(x)
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
-    document.getElementById('scheduleApp').style.display = "block"
-    var fechas = [];
 
+    console.log(document.getElementById(modeid));
+    document.getElementById(modeid).setAttribute('style', 'display:block;')
+}
+
+
+btnCita.addEventListener('click', e=>{
+    console.log('click');
+    //changeMode("scheduleApp");
+
+    document.getElementsByClassName('modeSch')[0].setAttribute('style', 'display:block;')
+    var x = document.getElementsByClassName('modeInfo');
+    console.log(x)
+    for (var i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+
+    var fechas = [];
     var startDate = new Date();
     for(var i = 1; i <= 15; i++){
         var newDate = new Date(
@@ -240,15 +290,19 @@ function upload_sesion(sesId){
         window.alert('Selecciona un horario válido');
         return;
     }
-
+    var fecha = new Date(ddl_fechas.value);
+    var options = {weekday: 'short', day:'2-digit', month:'long'};
     db.ref('sesiones/'+sesId).set({
         idTutor: p.get('tutor'),
         uidAlumno: firebase.auth().currentUser.uid,
         materia: ddl.value,
-        fecha: new Date(document.getElementById('dd_fecha').value),
+        fecha: fecha.toLocaleDateString('en-US', options),
         horario: document.getElementById('dd_horario').value,
         aceptada: 0
-    }).then(window.alert('Tu sesión ya fue agendada')).catch(window.alert('Ha ocurrido un error. Inténtalo de nuevo.'));
+    }).then( e => window.alert('Tu sesión ya fue agendada')).catch(err => {
+        window.alert('Ha ocurrido un error. Inténtalo de nuevo.');
+        console.log(fecha);
+    });
 }
 
 function remove_options(){
