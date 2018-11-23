@@ -22,20 +22,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row" style = "padding-bottom: 22px">
     <div class="w3-col s4">
-      <img id = "img_holder" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Bienvenido, <strong>Miguel</strong></span><br>
+      <span>Bienvenido, <strong id = 'menu_name'></strong></span><br>
     </div>
   </div>
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
+    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
-    <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+    <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
 
@@ -51,7 +51,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-panel">
       <div class="w3-row-padding w3-cell-row">
         <div class="w3-col" style="width:15%">
-          <img src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+          <img id = 'img_holder' src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
         </div>
         <div class="w3-rest">
           <table class="w3-table w3-large">
@@ -89,7 +89,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <!-- Horarios -->
   <div class = "w3-container w3-center" style="width: 75%">
     <h5><b>Horas Disponibles</b></h5>
-    <table class = "w3-table w3-border w3-bordered">
+    <table id = "schTable" class = "w3-table w3-border w3-bordered">
       <thead>
         <tr class = "w3-green">
           <td>Hora</td>
@@ -102,146 +102,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <td>Domingo</td>
         </tr>
       </thead>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">08:00 - 09:00</td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">09:00 - 10:00</td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">10:00 - 11:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">11:00 - 12:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">12:00 - 13:00</td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">13:00 - 14:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">14:00 - 15:00</td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">15:00 - 16:00</td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">16:00 - 17:00</td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">17:00 - 18:00</td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td class = "w3-light-blue"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">18:00 - 19:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">19:00 - 20:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">20:00 - 21:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="w3-white">
-        <td style="border-right: 1px grey solid">21:00 - 22:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
     </table>
   </div>
 
@@ -296,10 +156,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-half">
       <h5><b id="nomSch"></b></h5>
       <h5><b>Materia: </b></h5><select id = "materia" style="padding:3px; width:60%; margin: 3px">
+        <option value = 'select'>--Selecciona una materia--</option>
       </select>
       <h5><b>Fecha: </b></h5><select id = "dd_fecha" style="padding:3px; width:60%; margin: 3px">
+        <option value = 'select'>--Selecciona una fecha--</option>
       </select>
       <h5><b>Horario: </b></h5><select id = "dd_horario" style="padding:3px; width:60%; margin: 3px">
+        <option value = 'select'>--Selecciona un horario--</option>
       </select>
     </div>
 
@@ -315,38 +178,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </div>
 
 <script>
-var totMat=1;
-
-var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
-var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-var tab = document.getElementById("schTable");
-var row, col, t;
-
-for(i=0; i<14; i++){
-  row = document.createElement("tr");
-  row.id = "at"+hours[i];
-  row.className = "w3-white";
-  col =  document.createElement("td");
-
-  col.style.borderRight = "1px grey solid";
-  t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
-  col.appendChild(t);
-  row.appendChild(col);
-  for(j=0; j<7; j++){
-    col =  document.createElement("td");
-
-    col.className = "w3-btn w3-white w3-border";
-
-    col.id = hours[i]+days[j];
-    col.setAttribute("active", "0");
-    col.setAttribute("onclick", "schToggle(this.id)");
-
-    row.appendChild(col);
-  }
-  tab.appendChild(row);
-}
-
 function changeMode(modeid) {
     var i;
     var x = document.getElementsByClassName("mode");

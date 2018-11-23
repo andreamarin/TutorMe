@@ -1,22 +1,66 @@
 var btnLogout, db;
 var  id, url, carrera, cu, name, ref;
 
+// Sidebar elements
+var menu_name = document.getElementById("menu_name");
+var btnLogout = document.getElementById('btn_logout');
+var btnProfile = document.getElementById('btn_profile');
+var table_name;
+
+btnLogout.addEventListener('click', e=> {
+    firebase.auth().signOut();
+    window.location.href = "index.html"
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+    db.ref('usernames/'+user.uid).once('value', function(snap){
+        console.log(snap.val());
+        var username = snap.val().username;
+        var esTutor = snap.val().esTutor;
+        table_name;
+        console.log(username);
+        if(esTutor == 1){
+            btnProfile.href = 'tutorProfile.html';
+            table_name = 'tutores';
+        }else{
+            btnProfile.href = 'profile.html';
+            table_name = 'alumnos';
+        }
+
+        db.ref(table_name+'/'+username).on('value', function(snap){
+            menu_name.innerHTML = snap.val().nombre.split(" ")[0];
+            var img_path = snap.val().pp_path;
+            console.log(img_path);
+            if( img_path != 'none'){
+                var storage = firebase.storage();
+                var pathReference = storage.ref('profile_pictures/');
+                var manRef = pathReference.child(img_path);
+                manRef.getDownloadURL().then(function(url){
+                    var menu_pp = document.getElementById("menu_pp");
+                    menu_pp.src = url;
+                });
+            }
+        });
+
+    })
+});
+
 (function() {
     db = firebase.database();
     const params = new URLSearchParams(window.location.search);
     
     if(params.has('id')){
         id = params.get('id');
+        get_values(id);
     }else{
         firebase.auth().onAuthStateChanged(function(user) {
             ref = db.ref('usernames/'+user.uid);
             ref.on("value", function(snapshot){
                 id = snapshot.val().username;
+                get_values(id);
             }, function(errorObject){
                 console.log("The read failed: " + errorObject.code);
             });
-
-            get_values();
         });
     }
     // Get elements
@@ -28,11 +72,9 @@ btnLogout.addEventListener('click', e=> {
     window.location.href = "index.html"
 });
 
-function get_values(){
+function get_values(id){
     // Get a database reference
-    ref = db.ref("alumnos/"+id);
-    // Attach an asynchronous callback to read the data
-    ref.on("value", function(snapshot) {
+    ref = db.ref("alumnos/"+id).on("value", function(snapshot) {
         var usr = snapshot.val();
         var storage = firebase.storage();
         var pathReference = storage.ref('profile_pictures/');

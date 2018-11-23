@@ -22,20 +22,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row" style = "padding-bottom: 22px">
     <div class="w3-col s4">
-      <img src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img id = 'menu_pp' src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Bienvenido, <strong>Miguel</strong></span><br>
+     <span>Bienvenido, <strong id = 'menu_name' ></strong></span><br>
     </div>
   </div>
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
+    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
     <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
-    <a href="login.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+    <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
 
