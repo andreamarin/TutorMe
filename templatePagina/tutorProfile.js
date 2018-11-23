@@ -36,7 +36,7 @@ if(p.has('tutor')){
 
 function load_profile(idT){
     db.ref("tutores/"+idT).on("value", function(snap){
-        user = snap.val();
+        var user = snap.val();
         nom.innerHTML = user.nombre + nom.innerHTML; //Cambiar por nombre
         mail.innerHTML = 'Correo: '+idT+'@itam.mx' //Cambiar por correo
         carr.innerHTML =  "Carrera: " + user.carrera;
@@ -64,7 +64,7 @@ function load_profile(idT){
             var storage = firebase.storage();
             var pathReference = storage.ref('profile_pictures/');
             var manRef = pathReference.child(user.pp_path);
-        
+
             manRef.getDownloadURL().then(function(url){
                 var img_holder = document.getElementById("img_holder");
                 img_holder.src = url;
@@ -118,7 +118,7 @@ ddl_fechas.addEventListener('change', e => {
                         14: '14:00 - 15:00', 15:'15:00 - 16:00', 16:'16:00 - 17:00',
                         17: '17:00 - 18:00', 18:'18:00 - 19:00', 19:'19:00 - 20:00',
                         20: '20:00 - 21:00', 21:'21:00 - 22:00'};
-        
+
         selectedDate = new Date(ddl_fechas.value);
         var fechaId = dia[selectedDate.getDay()];
         for(let h of horarios){
@@ -147,6 +147,7 @@ function upload_sesion(sesId){
     db.ref('sesiones/'+sesId).set({
         idTutor: p.get('tutor'),
         uidAlumno: firebase.auth().currentUser.uid,
+        materia: ddl.value,
         fecha: new Date(document.getElementById('dd_fecha').value),
         horario: document.getElementById('dd_horario').value,
         aceptada: 0

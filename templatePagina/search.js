@@ -16,7 +16,7 @@ busquedaT.addEventListener('keypress', function(e){
     a.href = url;
     a.className = "w3-bar-item w3-button w3-hover-light-blue";
     a.style = "padding-left:2%";
-    a.innerHTML = snap.val().username ;
+    a.innerHTML = snap.val().nombre ;
     divT.appendChild(a);
     return;
   });
@@ -73,7 +73,7 @@ function loadTutors(){
   a.href = url;
   a.className = "w3-bar-item w3-button w3-hover-light-blue";
   a.style = "padding-left:2%";
-  a.innerHTML = snap.val().username ;
+  a.innerHTML = snap.val().nombre ;
   divT.appendChild(a);
   return;
 });
