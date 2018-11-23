@@ -80,7 +80,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class = "w3-half">
       <h5><b id="costo">Costo por Hora: </b> </h5>
-      <button id = 'btn_agendar' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge" onclick="changeMode('scheduleApp')">Agendar Cita</button>
+      <button id = 'btn_cita' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge">Agendar Cita</button>
     </div>
   </div>
 
@@ -291,35 +291,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <!-- Informacion Adicional -->
   <div class="w3-row-padding">
+
+
     <div class="w3-half">
       <h5><b id="nomSch"></b></h5>
-      <select id = "materia" style="padding:3px; width:60%; margin: 3px">
-
+      <h5><b>Materia: </b></h5><select id = "materia" style="padding:3px; width:60%; margin: 3px">
+      </select>
+      <h5><b>Fecha: </b></h5><select id = "dd_fecha" style="padding:3px; width:60%; margin: 3px">
+      </select>
+      <h5><b>Horario: </b></h5><select id = "dd_horario" style="padding:3px; width:60%; margin: 3px">
       </select>
     </div>
+
     <div class = "w3-half">
       <h5><b id="cS">Costo por Hora: </b> </h5>
     </div>
   </div>
 
-  <div class = "w3-panel w3-padding" id = "schedule">
-    <table id = "schTable" class = "w3-table w3-border w3-bordered">
-        <thead>
-          <tr class = "w3-green">
-            <td>Hora</td>
-            <td>Lunes</td>
-            <td>Martes</td>
-            <td>Miercoles</td>
-            <td>Jueves</td>
-            <td>Viernes</td>
-            <td>Sabado</td>
-            <td>Domingo</td>
-          </tr>
-        </thead>
-      </table>
-  </div>
-
-  <button id = 'btn_cita' class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
+  <button id = 'btn_agendar' class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
 </div>
 
 

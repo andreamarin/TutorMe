@@ -1,4 +1,4 @@
-var db, tutor = 1,id = 'w', uid;
+var db, tutor,id, uid;
 var btnConfirm;
 var user, pswd, pswd2, carrera, precio;
 var changes, changeUsr, changePswd, changeCarrera, changeRate, changeMat, changeHrs;
@@ -10,7 +10,7 @@ var data;
     db = firebase.database();
     firebase.auth().onAuthStateChanged(function(user) {
         uid = user.uid;
-        ref = db.ref('usernames/lXtk3eN5FjSSMSVBPoNoaYpQljJ3');//+uid);
+        ref = db.ref('usernames/'+uid);
         ref.on("value", function(snapshot){
             usr = snapshot.val();
             console.log(usr);

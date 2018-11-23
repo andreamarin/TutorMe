@@ -106,7 +106,6 @@ function schToggle(id){
   }
 }
 
-
 function get_elements(){
     user = document.getElementById("usr_field").value;
     email = document.getElementById("email_field").value;

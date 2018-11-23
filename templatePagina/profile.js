@@ -15,10 +15,10 @@ var  id, url, carrera, cu, name, ref;
             }, function(errorObject){
                 console.log("The read failed: " + errorObject.code);
             });
+
+            get_values();
         });
     }
-    window.setTimeout(get_values, 700);
-
     // Get elements
     btnLogout = document.getElementById("btn_logout");
 }()); 
