@@ -30,7 +30,8 @@
         <script type="text/javascript" charset="utf-8">
           $(document).ready(function() {
             var f = $.farbtastic('#picker');
-            var p = $('#picker').css('opacity', 0.25);
+            
+            var p = $('#picker').css('opacity', 1);
             var selected;
             $('.colorwell')
               .each(function () { f.linkTo(this); $(this).css('opacity', 0.75); })
@@ -45,6 +46,8 @@
                   //    $('#top_bar').css('backgroundColor', this.style.backgroundColor)
                   //}
               });
+              f.linkTo(color1)
+              $('#color1').css('opacity', 1).addClass('colorwell-selected')
           });
          </script>
     </head>
@@ -70,7 +73,7 @@
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">person</i>  Perfil</a> 
+    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
     <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
@@ -123,8 +126,8 @@
   <!-- COLORES  -->
   <form action="" style="width: 500px;">
       <div id="picker" style="float: right;"></div>
-      <div class="form-item"><label for="color1">Color principal:</label><input type="text" id="color1" name="color1" class="colorwell" value="#55e33b"  /></div>
-      <div class="form-item"><label for="color2">Color secundario:</label><input type="text" id="color2" name="color2" class="colorwell" value="#3060ff" /></div>     
+      <div class="form-item"><label for="color1">Color principal:</label><input type="text" id="color1" name="color1" class="colorwell" value="#50AE55"  /></div>
+      <div class="form-item"><label for="color2">Color secundario:</label><input type="text" id="color2" name="color2" class="colorwell" value="#2B98F0" /></div>     
   </form>
 
   <a id = 'btn_confirm' class="w3-button w3-light-blue w3-margin">Confirmar</a>
@@ -136,8 +139,10 @@
 
 <script>
 //add color changing listener
-top_bar.style.backgroundColor='#64f349'
+top_bar.style.backgroundColor='#50AE55'
+btn_profile.style.backgroundColor='#2B98F0'
 picker.addEventListener('click', function(){top_bar.style.backgroundColor=color1.style.backgroundColor})
+picker.addEventListener('click', function(){btn_profile.style.backgroundColor=color2.style.backgroundColor})
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 
