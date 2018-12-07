@@ -15,6 +15,8 @@ var btnProfile = document.getElementById('btn_profile');
 var table_name;
 var color = {};
 
+
+
 btnLogout.addEventListener('click', e=> {
     firebase.auth().signOut();
     window.location.href = "index.html"
