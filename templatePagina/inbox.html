@@ -13,9 +13,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-green w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px">
+<div class="w3-bar w3-top w3-green w3-large color1" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey bwcolor1" onclick="w3_open();"><i class="fa fa-bars bwcolor1"></i>  Menu</button>
+  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px" id="tutorMe">
 </div>
 
 <!-- Sidebar/menu -->
@@ -34,7 +34,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
     <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
     <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
-    <a href="inbox.html" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
+    <a href="inbox.html" class="w3-bar-item w3-button w3-padding w3-blue bwcolor2 color2"><i class="material-icons bwcolor2">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
@@ -46,7 +46,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
   <div class = "mode" id = "inbox">
   <div class = "w3-panel w3-padding">
-    <button class="w3-button w3-light-green w3-round-xxlarge w3-right" onclick="changeMode('send')">Mandar Mensaje</button>
+    <button class="w3-button w3-light-green w3-round-xxlarge w3-right color2 bwcolor2" onclick="changeMode('send')">Mandar Mensaje</button>
     <h5><b>Mensajes Recibidos</b></h5>
     
     <div class="w3-bar-block">
@@ -82,7 +82,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   <div class="w3-bar w3-right">
     <a href="#" class="w3-button">&laquo;</a>
-    <a href="#" class="w3-button w3-green">1</a>
+    <a href="#" class="w3-button w3-green color1 bwcolor2">1</a>
     <a href="#" class="w3-button">2</a>
     <a href="#" class="w3-button">3</a>
     <a href="#" class="w3-button">4</a>

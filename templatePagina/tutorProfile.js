@@ -14,6 +14,7 @@ var ref_horarios = {'Mon':[], 'Tue':[], 'Wed':[], 'Thu':[], 'Fri':[], 'Sat':[], 
 var btnEscribir = document.getElementById('btn_escribir');
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
+var color = {};
 
 var btnCita = document.getElementById('btn_cita');
 var btnAgendar = document.getElementById('btn_agendar');
@@ -41,6 +42,7 @@ firebase.auth().onAuthStateChanged(function(user){
         console.log(snap.val());
         var username = snap.val().username;
         var esTutor = snap.val().esTutor;
+        
         table_name;
         console.log(username);
         if(esTutor == 1){
@@ -54,6 +56,10 @@ firebase.auth().onAuthStateChanged(function(user){
         db.ref(table_name+'/'+username).on('value', function(snap){
             menu_name.innerHTML = snap.val().nombre.split(" ")[0];
             var img_path = snap.val().pp_path;
+            color['c1'] = snap.val().color1;
+            color['c2'] = snap.val().color2;
+            color['bw1'] = snap.val().bw1;
+            color['bw2'] = snap.val().bw2;
             console.log(img_path);
             if( img_path != 'none'){
                 var storage = firebase.storage();
@@ -310,3 +316,21 @@ function remove_options(){
         ddl_horarios.remove(i);
     }
 }
+
+(function(){
+  for(i of document.getElementsByClassName('color1')){
+    i.style.backgroundColor=color['c1'];
+  }
+  for(i of document.getElementsByClassName('color2')){
+    i.style.backgroundColor=color['c2'];
+  }
+  for(i of document.getElementsByClassName('bwcolor1')){
+    i.style.color=color['bw1'];
+  }
+  for(i of document.getElementsByClassName('bwcolor2')){
+    i.style.color=color['bw2'];
+  }
+  if(color['bw1'][4]!='0'){
+    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+  }
+}());

@@ -9,11 +9,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
         <script type="text/javascript" src="farbtastic/farbtastic.js"></script>
         <link rel="stylesheet" href="farbtastic/farbtastic.css" type="text/css" />
         <style>
             html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+            .material-icons.md-light { color: rgba(255, 255, 255, 1); }
         </style>
         <style type="text/css" media="screen">
            .colorwell {
@@ -42,9 +44,6 @@
                 f.linkTo(this);
                 p.css('opacity', 1);
                 $(selected = this).css('opacity', 1).addClass('colorwell-selected');
-                  //if(selected.id=='color1'){
-                  //    $('#top_bar').css('backgroundColor', this.style.backgroundColor)
-                  //}
               });
               f.linkTo(color1)
               $('#color1').css('opacity', 1).addClass('colorwell-selected')
@@ -54,9 +53,9 @@
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4" id="top_bar">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px">
+<div class="w3-bar w3-top w3-large" style="z-index:4" id="top_bar" :style="{backgroundColor:clr1['c1']}">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none 3-hover-text-light-grey" :style="{color:clr1['bw1']}" onclick="w3_open();"><i class="fa fa-bars" :style="{color:clr1['bw1']}"></i>  Menu</button>
+  <img :src="clr1['imgsrc']" class = "w3-right" style="width:50px">
 </div>
 
 <!-- Sidebar/menu -->
@@ -73,8 +72,8 @@
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a> 
-    <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
+    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding" :style="{color:clr2['bw2'], backgroundColor:clr2['c2']}"><i class="material-icons" :style="{color:clr2['bw2']}">person</i>  Perfil</a> 
+    <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons" :style="{}">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
@@ -125,8 +124,8 @@
 
   <!-- COLORES  -->
   <form action="" style="width: 500px;">
-      <div id="picker" style="float: right;"></div>
-      <div class="form-item"><label for="color1">Color principal:</label><input type="text" id="color1" name="color1" class="colorwell" value="#50AE55"  /></div>
+      <div id="picker" style="float: right;" @mousemove='func()'></div>
+      <div class="form-item"><label for="color1">Color principal:</label><input type="text" id="color1" name="color1" class="colorwell col1" :value="clr1['c1']" @input="func()" @change="func()" /></div>
       <div class="form-item"><label for="color2">Color secundario:</label><input type="text" id="color2" name="color2" class="colorwell" value="#2B98F0" /></div>     
   </form>
 
@@ -137,123 +136,8 @@
   <!-- End page content -->
 </div>
 
-<script>
-//add color changing listener
-top_bar.style.backgroundColor='#50AE55'
-btn_profile.style.backgroundColor='#2B98F0'
-picker.addEventListener('click', function(){top_bar.style.backgroundColor=color1.style.backgroundColor})
-picker.addEventListener('click', function(){btn_profile.style.backgroundColor=color2.style.backgroundColor})
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-    overlayBg.style.display = "none";
-}
-
-var totMat = 1;
-
-var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
-var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-var tab = document.getElementById("schTable");
-var row, col, t;
-
-for(i=0; i<14; i++){
-  row = document.createElement("tr");
-  row.id = "at"+hours[i];
-  row.className = "w3-white";
-  col =  document.createElement("td");
-  
-  col.style.borderRight = "1px grey solid";
-  t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
-  col.appendChild(t);
-  row.appendChild(col);
-  for(j=0; j<7; j++){
-    col =  document.createElement("td");
-
-    col.className = "w3-btn w3-white w3-border";
-    
-    col.id = hours[i]+days[j];
-    col.setAttribute("active", "0");
-    col.setAttribute("onclick", "schToggle(this.id)");
-
-    row.appendChild(col);
-  }
-  tab.appendChild(row);
-}
-
-function toggle(modeid) {
-    
-    var x = document.getElementById(modeid);
-    if(x.style.display == "none"){
-        x.style.display = "block";
-    }else{
-        x.style.display = "none";
-    }
-}
-
-function addMat(){
-    var mat = document.createElement("input");
-    mat.className = "w3-input w3-border";
-    mat.style.padding = "3px";
-    mat.style.width = "60%";
-    mat.style.margin = "3px";
-    mat.placeholder = "Materia "+ (totMat+1)
-    mat.id = "materia"+ (totMat++);
-    document.getElementById("materias").appendChild(mat);
-
-}
-
-function removeMat(){
-    if(totMat>1){
-        document.getElementById("materia"+ (--totMat)).remove();
-    }
-}
-
-function schToggle(id){
-  var x = document.getElementById(id);
-  var i = x.className.indexOf("w3-white");
-  if(i == -1){
-    x.className = x.className.replace("w3-light-blue", "w3-white");
-    x.setAttribute("active", "0");
-  }else{
-    x.className = x.className.replace("w3-white", "w3-light-blue");
-    x.setAttribute("active", "1");
-  }
-}
-</script>
-
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
-    authDomain: "tutorme-9b2cb.firebaseapp.com",
-    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
-    projectId: "tutorme-9b2cb",
-    storageBucket: "tutorme-9b2cb.appspot.com",
-    messagingSenderId: "616196369980"
-  };
-  firebase.initializeApp(config);
-</script>
-
-<script src = "editProfile.js"></script>
+<script src="editProfile.js"></script>
 
 </body>
 </html>
