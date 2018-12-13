@@ -8,7 +8,6 @@ var horarios = [];
 (function() {
     // Get elements
     btnConfirm = document.getElementById("btn_confirm");
-    btnCancel = document.getElementById("btn_cancel");
     btnUpload = document.getElementById("btn_upload");
     ifTutor = document.getElementById("ifTutor");
 
@@ -16,6 +15,7 @@ var horarios = [];
 
 }());
 
+/*------------------------- FRONT-END ----------------------------------------------------------------*/
 //Saca el catalogo de materias y lo guarda en una variable
 var catalogoMaterias = [];
 
@@ -57,8 +57,6 @@ for(i=0; i<14; i++){
   }
   tab.appendChild(row);
 }
-
-
 
 function toggle(modeid) {
     
@@ -106,8 +104,11 @@ function schToggle(id){
   }
 }
 
+/*------------------------- BACK-END ----------------------------------------------------------------*/
+
+
 function get_elements(){
-    user = document.getElementById("usr_field").value;
+    user = document.getElementById("user_field").value;
     email = document.getElementById("email_field").value;
     pswd = document.getElementById("pswd_field").value;
     pswd2 = document.getElementById("pswd2_field").value;
@@ -142,7 +143,7 @@ function get_elements(){
 btnConfirm.addEventListener('click', e => {
     get_elements();
 
-    if (user == "" || email == "" || pswd == "" || pswd2 == ""
+    if (email == "" || pswd == "" || pswd2 == ""
         || carrera == "" || cu == ""){
             if(tutor && (materias == [] || horarios == [] || precio == "")){
                 window.alert("Debes llenar todos los campos.");
@@ -159,10 +160,11 @@ btnConfirm.addEventListener('click', e => {
         return;
     }
     
+    
     if(cu.length != 9){
-        window.alert("Tu clave única debe tener 9 dígitos.");
+        window.alert("Tu clave única debe tener 9 dígitos. (Rellena con ceros a la izquierda)");
     }
-
+    
     if(pswd != pswd2){
         window.alert("Las contraseñas no coinciden");
         return;
@@ -187,10 +189,6 @@ btnConfirm.addEventListener('click', e => {
             */
         })
         .catch(e => window.alert("Ha ocurrido un error, intenta de nuevo. "+e.message));
-});
-
-btnCancel.addEventListener('click', e => {
-    window.location.href = "index.html";
 });
 
 btnUpload.addEventListener('change', e => {

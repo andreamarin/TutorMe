@@ -8,26 +8,59 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+#overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 2;
+  cursor: pointer;
+}
+body,html{
+
+  height: 100%;
+  margin: 0;
+  background-color: rgb(32, 92, 32);
+  font-family: "Raleway", sans-serif
+}
+.bg{
+  background-image: url("img/tutor.jpg");
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
-<body class="w3-light-green">
 
 
+<body>
 <!-- Overlay effect when opening sidebar on small screens -->
-
-
 <!-- !PAGE CONTENT! -->
-<div id = "login_div" 
-class = "w3-display-middle" style="width:25%">
-  <img src = "img/logoTutorMe.png" class = "w3-center" style="width:45%; display:block; margin-left:auto; margin-right:auto">
-  <h1 class = "w3-center"><b>TutorMe</b></h1>
-  <input class="w3-input w3-border" style="margin:3px" type="text" id = "email_field" placeholder="Usuario">
-  <input class="w3-input w3-border" style="margin:3px" type="password" id = "pswd_field" placeholder="Contraseña">
-  <a id = "btn_login" class="w3-button w3-block w3-light-blue" style="margin:3px" >Entrar</a> <!--href="home.html"-->
-  <a class="w3-button w3-block w3-red" style="margin:3px" href="register.html">Registrarse</a>
+<div class = "bg">
+<div id = "overlay">
+<div class = "w3-panel w3-display-middle" style= "width:40%; margin-right:60px">
+  <div id = "login_div" class = "column w3-left w3-panel w3-white " style="width:100%; border-radius: 5px">
+      <img src = "img/logoTutorMe.png" class = "w3-center" style="width:30%; display:block; margin-left:auto; margin-right:auto">
+      <h1 class = "w3-center w3-margin-bottom"><b>TutorMe</b></h1>
+      <input class="w3-input w3-margin-top required" style="margin:3px" type="text" id = "email_field" placeholder="Usuario" required>
+      <input class="w3-input w3-margin-top" style="margin:3px" type="password" style = "margin-top:8px" id = "pswd_field" placeholder="Contraseña" required>
+      <a id = "btn_login" class="w3-button w3-padding-large w3-block w3-light-blue w3-margin-top"><b>Entrar</b> </a> 
+      <p class= "w3-center">
+        <a href="reg.html">Registrarse</a> &nbsp;·&nbsp;
+        <a href="../">Olvidé mi contraseña</a>
+      </p>
+  </div>
 </div>
+</div>
+</div>
+
 <!-- End page content -->
-</div>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script>

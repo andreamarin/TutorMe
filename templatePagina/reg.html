@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<title>TutorMe</title>
+<meta charset="UTF-8">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body {
+    background-color:  rgb(32, 92, 32);
+    font-family: "Raleway", sans-serif
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  margin: 10px;
+  background-color: white
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  font-family: "Raleway", sans-serif
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.headers {
+  background-color:  rgb(40, 122, 40);
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+  color: white;
+  padding: 16px 20px;
+  margin: 0px 0;
+  border: 1px;
+  width: 50%;
+  opacity: 1;
+}
+
+a {
+  color: dodgerblue;
+}
+html,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenido a TutorMe</h1>
+    <p>La plataforma de encuentro entre alumnos y tutores</p>
+    <hr>
+    <label><b>Nombre</b></label>
+    <input id = "user_field" type="text" placeholder="ej. Pedro Pérez" name="email" required>
+
+    <label><b>Correo</b></label>
+    <input id = "email_field" type="text" placeholder="ej. a@itam.mx" name="email" required>
+
+    <label ><b>Clave única</b></label>
+    <input id = "cu_field" type="text"  placeholder="ej. 000154623" required>
+
+    <label ><b>Carrera</b></label>
+    <input id = "carrera_field" type="text"  placeholder="ej. Dirección Financiera" required>
+
+    <label><b>Contraseña</b></label>
+    <input id = "pswd_field" type="password" name="psw" required>
+
+    <label ><b>Repite la contraseña</b></label>
+    <input id = "pswd2_field" type="password" required>
+
+    <b class = "w3-margin-right">Elige una foto de perfil:</b><input class = "w3-margin-left" type = "file"  value ="Upload" id = "btn_upload" style = "margin-left:20px;height:30px"/><br>
+
+    <b>Tutor: </b> <input class="w3-check" type="checkbox" onclick="toggle('ifTutor')"> <br>
+
+    <div class = "container" id = "ifTutor" style="display:none">
+            <label><b>Materias</b></label>
+            <div class="w3-row">
+              <div id="materias" class = "w3-half">
+              </div>
+              <div class="w3-half">
+                <input id="rate" class="w3-input w3-border" style="padding:3px; width:60%; margin: 3px" type="number" placeholder="Costo por Hora">
+              </div>
+            </div>
+            <button class="w3-btn w3-round-xxlarge w3-white w3-border w3-margin-bottom w3-margin-top" onclick="addMat()">+</button>
+            <button class="w3-btn w3-round-xxlarge w3-white w3-border w3-margin-bottom w3-margin-top" onclick="removeMat()">-</button><br>
+            <label ><b style ="margin-top:60px">Horarios</b></label>
+            <table id = "schTable" class = "w3-table w3-border w3-bordered">
+                    <thead>
+                      <tr class = "headers">
+                        <td>Hora</td>
+                        <td>Lunes</td>
+                        <td>Martes</td>
+                        <td>Miercoles</td>
+                        <td>Jueves</td>
+                        <td>Viernes</td>
+                        <td>Sabado</td>
+                        <td>Domingo</td>
+                      </tr>
+                    </thead>
+              </table>
+          </div>
+  
+    <button id = "btn_confirm" type = "sumbit" class="w3-button w3-light-blue w3-margin">Confirmar</button>
+    <b>¿Ya tienes cuenta? </b><a href="index.html">Inicia sesión</a>
+  </div>
+
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+      authDomain: "tutorme-9b2cb.firebaseapp.com",
+      databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+      projectId: "tutorme-9b2cb",
+      storageBucket: "tutorme-9b2cb.appspot.com",
+      messagingSenderId: "616196369980"
+    };
+    firebase.initializeApp(config);
+  </script>
+  
+  <script src = "reg.js"/></script>
+</body>
+</html>

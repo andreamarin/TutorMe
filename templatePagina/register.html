@@ -8,18 +8,45 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    #overlay {
+      position: fixed;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 2;
+      cursor: pointer;
+    }
+    body,html{
+      height: 100%;
+      margin: 0;
+      background-color: rgb(32, 92, 32);
+      font-family: "Raleway", sans-serif
+    }
+    .bg{
+      background-image: url("img/tutor.jpg");
+      /* Full height */
+      height: 100%; 
+    
+      /* Center and scale the image nicely */
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: -1;
+    }
+    h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
-<body class="w3-light-green">
+<body class = "bg">
 
 
 <!-- Overlay effect when opening sidebar on small screens -->
 
 
 <!-- !PAGE CONTENT! -->
-<div class = "w3-panel w3-margin w3-light-grey w3-bordered" style="width:45%" >
+<div>
+<div class = "container w3-white w3-margin" style="width:30%; border-radius: 5px" >
   <h5><b>Proporcionar los siguientes datos: </b></h5>
-  <input id = "usr_field"class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Usuario"><br>
+  <input id = "usr_field" class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Usuario"><br>
   <input id = "email_field" class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="text" placeholder="Correo"><br>
   <input id = "pswd_field" class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Contraseña"><br>
   <input id = "pswd2_field" class="w3-animate-input w3-border" style="width:30%; margin: 3px" type="password" placeholder="Repetir Contraseña"><br>
@@ -53,14 +80,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                 <td>Domingo</td>
               </tr>
             </thead>
-          </table>
+      </table>
   </div>
-
   <a id = "btn_confirm" class="w3-button w3-light-blue w3-margin"/>Confirmar</a>
-  <a id = "btn_cancel" class="w3-button w3-red w3-margin">Cancelar</a>
+  <a id = "btn_cancel" class="w3-button w3-light-gray w3-margin">Iniciar Sesión</a>
+</div>
 </div>
 <!-- End page content -->
-</div>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script>
