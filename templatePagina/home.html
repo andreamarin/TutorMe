@@ -76,7 +76,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
       </table>
 
-      
+
   </div>
 
   <hr>
@@ -95,7 +95,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                 <th></th>
               </tr>
           </thead>
-      
+
       </table>
 
       <hr>
@@ -111,7 +111,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
               <th></th>
             </tr>
         </thead>
-    
+
     </table>
   </div>
 
@@ -142,12 +142,27 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <td>Organizacion y Programacion de Computadoras</td>
             <td><button class="w3-btn w3-round-xxlarge w3-blue color2 bwcolor2">Nueva Session</button></td>
             <td><button class="w3-btn w3-round-xxlarge w3-blue color2 bwcolor2">Reseña</button></td>
-            <td><button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button></td>
+            <td><button id="btnmail" class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button></td>
           </tr>
       </table>
 
   </div>
   <!-- End page content -->
+</div>
+
+<div id="message" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="sendMailTo = null; document.getElementById('message').style.display='none'"
+      class="w3-button w3-display-topright">&times;</span>
+      <div class="w3-container w3-padding-24">
+        <input id="mailSub" class="w3-input w3-border" type="text" placeholder="Titulo:">
+        <textarea id = "mailText" class="w3-input w3-border" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
+        <button class="w3-button w3-light-green w3-round-xxlarge w3-right w3-margin-top" onclick="enviarMail()">Enviar</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <script>
