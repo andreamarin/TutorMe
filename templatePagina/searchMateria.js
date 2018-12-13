@@ -1,5 +1,6 @@
 var tutores = document.getElementById("tutores");
 var nomMat = document.getElementById("nomMat");
+var color = {};
 
 var db = firebase.database();
 
@@ -31,6 +32,10 @@ firebase.auth().onAuthStateChanged(function(user){
 
         db.ref(table_name+'/'+username).on('value', function(snap){
             menu_name.innerHTML = snap.val().nombre.split(" ")[0];
+            color['c1'] = snap.val().color1;
+            color['c2'] = snap.val().color2;
+            color['bw1'] = snap.val().bw1;
+            color['bw2'] = snap.val().bw2;
             var img_path = snap.val().pp_path;
             console.log(img_path);
             if( img_path != 'none'){
@@ -74,3 +79,21 @@ db.ref("/tutores/").on("child_added", function(t){
   }
   return;
 });
+
+(function(){
+  for(i of document.getElementsByClassName('color1')){
+    i.style.backgroundColor=color['c1'];
+  }
+  for(i of document.getElementsByClassName('color2')){
+    i.style.backgroundColor=color['c2'];
+  }
+  for(i of document.getElementsByClassName('bwcolor1')){
+    i.style.color=color['bw1'];
+  }
+  for(i of document.getElementsByClassName('bwcolor2')){
+    i.style.color=color['bw2'];
+  }
+  if(color['bw1'][4]!='0'){
+    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+  }
+}());

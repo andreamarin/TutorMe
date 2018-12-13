@@ -1,5 +1,6 @@
 var btnCancel, btnConfirm, btnUpload;
 var user, email, pswd, pswd2, carrera, cu, username, file;
+var color1, color2, bw1, bw2;
 var db;
 var tutor, precio;
 var materias = [];
@@ -115,6 +116,10 @@ function get_elements(){
     carrera = document.getElementById("carrera_field").value;
     cu = document.getElementById("cu_field").value; 
     username = email.split("@")[0];
+    color1 = "#50AE55";
+    color2 = "#8ACEE9";
+    bw1 = "#ffffff"
+    bw2 = "#000000";
 
     tutor = ifTutor.style.display === "block";
     var horas = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
@@ -229,7 +234,11 @@ function upload_db(filename){
             materias: materias,
             horarios: horarios,
             username: username,
-            pp_path: filename
+            pp_path: filename,
+            color1: color1,
+            color2: color2,
+            bw1: bw1,
+            bw2: bw2
         });
     }else{
         db.ref('alumnos/'+username).set({
@@ -237,7 +246,11 @@ function upload_db(filename){
             username: username,
             carrera: carrera,
             clave_unica: cu,
-            pp_path: filename
+            pp_path: filename,
+            color1: color1,
+            color2: color2,
+            bw1: bw1,
+            bw2: bw2
         });
     }  
     

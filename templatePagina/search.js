@@ -3,6 +3,7 @@ var menu_name = document.getElementById("menu_name");
 var btnLogout = document.getElementById('btn_logout');
 var btnProfile = document.getElementById('btn_profile');
 var table_name;
+var color = {};
 var db = firebase.database();
 
 btnLogout.addEventListener('click', e=> {
@@ -27,6 +28,10 @@ firebase.auth().onAuthStateChanged(function(user){
 
         db.ref(table_name+'/'+username).on('value', function(snap){
             menu_name.innerHTML = snap.val().nombre.split(" ")[0];
+            color['c1'] = snap.val().color1;
+            color['c2'] = snap.val().color2;
+            color['bw1'] = snap.val().bw1;
+            color['bw2'] = snap.val().bw2;
             var img_path = snap.val().pp_path;
             console.log(img_path);
             if( img_path != 'none'){
@@ -86,7 +91,7 @@ busqueda.addEventListener('keypress', function(e){
     query.orderByChild("nombre").equalTo(busqueda.value).on('child_added', function(snap){
       var a = document.createElement("a");
       a.href = "searchMateria.html";
-      a.className = "w3-bar-item w3-button w3-hover-light-blue";
+      a.className = "w3-bar-item w3-button w3-hover-light-blue color2 bwcolor2";
       a.style = "padding-left:2%";
       a.innerHTML = snap.val().nombre;
       bySub.appendChild(a);
@@ -175,3 +180,21 @@ const divT = document.getElementById("tutores");
 const bySub = document.getElementById("materias");
 loadTutors();
 loadMaterias();
+
+(function(){
+  for(i of document.getElementsByClassName('color1')){
+    i.style.backgroundColor=color['c1'];
+  }
+  for(i of document.getElementsByClassName('color2')){
+    i.style.backgroundColor=color['c2'];
+  }
+  for(i of document.getElementsByClassName('bwcolor1')){
+    i.style.color=color['bw1'];
+  }
+  for(i of document.getElementsByClassName('bwcolor2')){
+    i.style.color=color['bw2'];
+  }
+  if(color['bw1'][4]!='0'){
+    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+  }
+}());

@@ -13,9 +13,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-green w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px">
+<div class="w3-bar w3-top w3-green w3-large color1" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey bwcolor1" onclick="w3_open();"><i class="fa fa-bars bwcolor1"></i>  Menu</button>
+  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px" id="tutorMe">
 </div>
 
 <!-- Sidebar/menu -->
@@ -33,7 +33,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
     <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="material-icons">search</i>  Buscar</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue color2 bwcolor2"><i class="material-icons bwcolor2">search</i>  Buscar</a>
     <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
@@ -80,7 +80,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class = "w3-half">
       <h5><b id="costo">Costo por Hora: </b> </h5>
-      <button id = 'btn_cita' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge">Agendar Cita</button>
+      <button id = 'btn_cita' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge color2 bwcolor2">Agendar Cita</button>
     </div>
   </div>
 
@@ -91,15 +91,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <h5><b>Horas Disponibles</b></h5>
     <table id = "schTable" class = "w3-table w3-border w3-bordered">
       <thead>
-        <tr class = "w3-green">
-          <td>Hora</td>
-          <td>Lunes</td>
-          <td>Martes</td>
-          <td>Miercoles</td>
-          <td>Jueves</td>
-          <td>Viernes</td>
-          <td>Sabado</td>
-          <td>Domingo</td>
+        <tr class = "w3-green color1">
+          <td class="bwcolor1">Hora</td>
+          <td class="bwcolor1">Lunes</td>
+          <td class="bwcolor1">Martes</td>
+          <td class="bwcolor1">Miercoles</td>
+          <td class="bwcolor1">Jueves</td>
+          <td class="bwcolor1">Viernes</td>
+          <td class="bwcolor1">Sabado</td>
+          <td class="bwcolor1">Domingo</td>
         </tr>
       </thead>
     </table>
@@ -114,7 +114,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <h5><b>Reseñas</b></h5>
       </div>
       <div class="w3-rest w3-right">
+<<<<<<< HEAD
           <button id = 'btn_escribir' class="w3-button w3-light-blue w3-round-xxlarge">Escribir Reseña</button>
+=======
+          <button class="w3-button w3-light-blue w3-round-xxlarge color2 bwcolor2">Escribir Reseña</button>
+>>>>>>> 5c8d802dc31de16b572c8838f9591a34d6ac0831
       </div>
     </div>
 
