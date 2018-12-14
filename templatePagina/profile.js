@@ -41,7 +41,8 @@ firebase.auth().onAuthStateChanged(function(user) {
             menu_name.innerHTML = snap.val().nombre.split(" ")[0];
             var img_path = snap.val().pp_path;
             console.log(img_path);
-            if( img_path != 'none'){
+            if( img_path != "none"){
+                console.log("(?)");
                 var storage = firebase.storage();
                 var pathreference = storage.ref('profile_pictures/');
                 var manref = pathreference.child(img_path);
@@ -88,23 +89,25 @@ function get_values(id){
     // Get a database reference
     ref = db.ref("alumnos/"+id).on("value", function(snapshot) {
         var usr = snapshot.val();
-        var storage = firebase.storage();
-        var pathReference = storage.ref('profile_pictures/');
-        var manRef = pathReference.child(usr.pp_path);
-    
-        manRef.getDownloadURL().then(function(url){
-            var img_holder = document.getElementById("profile_img");
-            img_holder.src = url;
-        });
+        var img_path = usr.pp_path;
 
+        if(img_path != "none"){
+            var storage = firebase.storage();
+            var pathReference = storage.ref('profile_pictures/');
+            var manRef = pathReference.child(usr.pp_path);
+        
+            manRef.getDownloadURL().then(function(url){
+                var img_holder = document.getElementById("profile_img");
+                img_holder.src = url;
+            });
+        }
         document.getElementById("name").textContent = usr.nombre;
-        document.getElementById("carreras").textContent = "Carrera(s): "+usr.carrera;
+        document.getElementById("carreras").textContent = usr.carrera;
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
 
-    document.getElementById("username").textContent = id;
-    document.getElementById("email").textContent = "Correo: "+id+"@itam.mx";
+    document.getElementById("email").textContent = ""+id+"@itam.mx";
 }
 
 if(color){

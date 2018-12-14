@@ -20,7 +20,9 @@ var color = {};
 var resenas = [];
 
 var btnCita = document.getElementById('btn_cita');
+var btnMsj = document.getElementById('btn_mensaje');
 var btnAgendar = document.getElementById('btn_agendar');
+var btnEditar = document.getElementById('btn_editar');
 var dd_materias = document.getElementById('materias');
 
 var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
@@ -28,6 +30,7 @@ var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 var tab = document.getElementById("schTable");
 var row, col, t;
+var tutorUsername;
 
 // Sidebar elements
 var menu_name = document.getElementById("menu_name");
@@ -39,6 +42,7 @@ btnLogout.addEventListener('click', e=> {
     firebase.auth().signOut();
     window.location.href = "index.html"
 });
+
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -88,7 +92,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 for(i=0; i<14; i++){
   row = document.createElement("tr");
   row.id = "at"+hours[i];
-  row.className = "w3-white";
+  row.style = "background-color:white";
   col =  document.createElement("td");
 
   col.style.borderRight = "1px grey solid";
@@ -97,7 +101,8 @@ for(i=0; i<14; i++){
   row.appendChild(col);
   for(j=0; j<7; j++){
     col =  document.createElement("td");
-    col.className = "w3-white w3-border";
+    col.className = "w3-border";
+    col.style = "background-color:white";
     col.id = hours[i]+days[j];
     row.appendChild(col);
   }
@@ -118,8 +123,11 @@ if(p.has('tutor')){
             console.log("The read failed: " + errorObject.code);
         });
     });
+
+    btnMsj.style.display = "none";
     btnAgendar.style.display = "none";
     btnCita.style.display = "none";
+    btnEditar.style.display = "block";
 }
 
 function load_profile(idT){
@@ -151,7 +159,7 @@ function load_profile(idT){
         var horarios = user.horarios;
         for(let h of horarios){
             var cell = document.getElementById(h);
-            cell.className = cell.className.replace("w3-white", "w3-light-blue");
+            cell.style.backgroundColor = "#46AFDD";
             ref_horarios[h.slice(2)].push(h.slice(0,2));
         }
 
@@ -163,14 +171,12 @@ function load_profile(idT){
 
             manRef.getDownloadURL().then(function(url){
                 var img_holder = document.getElementById("img_holder");
-                var menu_pp = document.getElementById("menu_pp");
                 img_holder.src = url;
             });
         }
     });
 
     db.ref('reviews/'+idT).on("value", function(snap){
-        var storage = firebase.storage();
         var reviews = snap.val();
         console.log(reviews);
         if(reviews){
@@ -214,6 +220,44 @@ function changeMode(modeid) {
     console.log(document.getElementById(modeid));
     document.getElementById(modeid).setAttribute('style', 'display:block;')
 }
+
+
+
+var sendMailTo;
+btnMsj.addEventListener('click', e => {
+    console.log("Send mail to: " + p.get("tutor"));
+    sendMailTo = p.get("tutor");
+    document.getElementById('message').style.display='block';
+});
+
+function enviarMail(){
+    subject = document.getElementById("mailSub").value;
+    message = document.getElementById("mailText").value;
+
+    db.ref("usernames").orderByChild("username").equalTo(sendMailTo).on("child_added", function(u){
+      if(u.val().esTutor == 1){
+        db.ref("tutores/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+    });
+
+    document.getElementById('message').style.display='none';
+
+  }
 
 
 btnCita.addEventListener('click', e=>{

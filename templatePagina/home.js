@@ -97,20 +97,20 @@ function setSesTutor(ui){
 
             if(ci.val().aceptada == 1){
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               tProxTutor.appendChild(tr);
 
               tProxTutor.style.display = "block";
             }else{
               var btnAR = document.createElement("td");
-              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button>';
+              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button>';
               tr.appendChild(btnAR);
               var btn = document.createElement("td");
               btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               pendTutor.appendChild(tr);
-              pendTutor.style.display = "block";
+              pendTutor.style.display = "";
             }
             return;
           });
@@ -156,7 +156,7 @@ function setTutor(usrnm){
                 tProx.appendChild(tr);
               }else{
                 var btnAR = document.createElement("td");
-                btnAR.innerHTML = '<button onclick= aceptar(' + c.key +') class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + c.key +') class="w3-btn w3-round-xxlarge w3-red">Rechazar</button>';
+                btnAR.innerHTML = '<button onclick= aceptar(' + c.key +') class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + c.key +') class="w3-btn w3-round-xxlarge btnColor2">Rechazar</button>';
                 tr.appendChild(btnAR);
                 var btn = document.createElement("td");
                 btn.innerHTML = '<button onclick=showMail(alumno) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
@@ -200,12 +200,12 @@ function setAlumno(ui){
             tr.appendChild(hr);
             if(ci.val().aceptada == 1){
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               tProx.appendChild(tr);
             }else{
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(usrTut) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(usrTut) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
 
 
@@ -274,14 +274,16 @@ function aceptar(key){
 
   function rechazar(key){
     console.log("remove");
-    var ref = db.ref("/sesiones/" + key);
-    var res = ref.remove();
-    res.then(e => {
-        console.log('Update exitoso');
-    })
-    .catch(err => {
-        console.log("error "+err.message);
-    });
+      if(confirm("¿Estás seguro que quieres cancelar la sesión?")){
+      var ref = db.ref("/sesiones/" + key);
+      var res = ref.remove();
+      res.then(e => {
+          console.log('Update exitoso');
+      })
+      .catch(err => {
+          console.log("error "+err.message);
+      });
+    }
   }
 
 

@@ -28,12 +28,9 @@ firebase.auth().onAuthStateChanged(function(user) {
           btnProfile.href = 'tutorProfile.html';
           tutor = true;
           table_name = 'tutores';
-          setTutor(username);
-          setSesTutor(uid);
       }else{
           btnProfile.href = 'profile.html';
           table_name = 'alumnos';
-          setAlumno(uid);
       }
 
       db.ref(table_name+'/'+username).on('value', function(snap){

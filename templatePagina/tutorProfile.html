@@ -8,18 +8,89 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-</style>
-<body class="w3-light-grey">
+  html,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+  body{
+    background-color: rgb(253, 253, 253);
+  }
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+  body, html {
+      height: 100%;
+      line-height: 1.8;
+  }
+  
+  .w3-bar .w3-button {
+      padding: 16px;
+  }
+  
+  .header{
+    background-color:  #005B49;
+  }
+
+  .tableHeader{
+    background-color:  #207060;
+    color: white;
+  }
+
+  .btnColor{
+    background-color:#46AFDD;
+    color: black;
+    padding: 10px;
+    width: 150px;
+  }
+
+  .btnColor2{
+    background-color: #82B807;
+    color: black;
+    padding: 10px;
+    width: 150px;
+  }
+  
+  /* Add padding to containers */
+  .container {
+    padding: 10px;
+    margin-top:10px;
+  }
+  
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px;
+  
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .column {
+    float: left;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .border {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  .sidebar {
+  box-shadow:         0px 0 5px 0 rgb(185, 185, 185);
+  }
+  </style>
+<body >
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-green w3-large color1" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey bwcolor1" onclick="w3_open();"><i class="fa fa-bars bwcolor1"></i>  Menu</button>
-  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px" id="tutorMe">
+<div class="w3-bar w3-top header w3-large" style="z-index:4">
+  <button style = "color: white" class="w3-bar-item w3-button w3-hide-large" onclick="w3_open();"><i class="fa fa-bars "></i>  Menu</button>
+  <img src = "img/logoTutorMeW.png" class = "w3-right" style="width:50px; margin-right:30px" id="tutorMe">
 </div>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+<nav  id = "mySidebar" class="sidebar w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row" style = "padding-bottom: 22px">
     <div class="w3-col s4">
       <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
@@ -33,8 +104,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
     <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
-    <a href="search.html" class="w3-bar-item w3-button w3-padding w3-blue color2 bwcolor2"><i class="material-icons bwcolor2">search</i>  Buscar</a>
-    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
+    <a href="search.html" class="w3-bar-item w3-button w3-padding color2 bwcolor2"><i class="material-icons bwcolor2">search</i>  Buscar</a>
+    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes </a>
     <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
  </div>
 </nav>
@@ -48,25 +119,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class = "modeInfo" id = "info">
     <hr>
     <!-- Nombre, usuario, correo -->
-    <div class="w3-panel">
-      <div class="w3-row-padding w3-cell-row">
-        <div class="w3-col" style="width:15%">
-          <img id = 'img_holder' src="img/avatar.png" style="width:100%" class="w3-circle w3-margin-right" alt="No hay foto :( ">
+    <div class="w3-panel container">
+      <div class = row>
+        <div class="column" style="width:18%">
+          <img id = 'img_holder' src="img/avatar.png" class="image--cover" alt="No hay foto :( ">
         </div>
-        <div class="w3-rest">
-          <table class="w3-table w3-large">
-            <tr>
-              <td id="nombre"><button class="w3-btn w3-round-xxlarge"><i class="material-icons" style="vertical-align:middle">mail</i></button></td>
-            </tr>
-            <tr>
-              <td id="mail"></td>
-            </tr>
-            <tr>
-              <td id="carrera"> </td>
-            </tr>
-          </table>
+
+        <div class  = "column container" style = "width: 50%">
+            <label ><h3 id = "nombre"></h3></label> 
+            <label ><h5 id = "carrera">  </h5 ></label>
+            <label id = "mail"><b >  </b></label>
         </div>
-    </div>
+
+        <div class = "column container" style = "width:15%">
+          <a id = 'btn_editar' style = "display: none;" class="w3-button color2 bwcolor2 w3-margin" href="editProfile.html"> <i class="material-icons" style="font-size:35px;">settings</i> </a>
+          <button id = 'btn_mensaje' style = "display: block;" class="w3-button btnColor w3-round-xxlarge color2 bwcolor2 w3-margin"> Enviar Mensaje</button>
+          <button id = 'btn_cita' style = "display: block;" class="w3-button btnColor2 w3-round-xxlarge color2 bwcolor2 w3-margin">Agendar Cita</button>
+        </div>
+      </div>
 
 
   <hr>
@@ -80,19 +150,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class = "w3-half">
       <h5><b id="costo">Costo por Hora: </b> </h5>
-      <button id = 'btn_cita' style = "display: block;" class="w3-button w3-light-green w3-round-xxlarge color2 bwcolor2">Agendar Cita</button>
     </div>
   </div>
 
   <hr>
 
   <!-- Horarios -->
-  <div class = "w3-container w3-center" style="width: 75%">
+  <div class = "w3-responsive w3-container w3-center" style="width: 75%">
     <h5><b>Horas Disponibles</b></h5>
-    <table id = "schTable" class = "w3-table w3-border w3-bordered">
+    <div class = "" >
+    <table align="right" id = "schTable" class = "w3-table w3-border w3-bordered w3-centered" >
       <thead>
-        <tr class = "w3-green color1">
-          <td class="bwcolor1">Hora</td>
+        <tr class = "tableHeader color1">
+          <td class="tableHeader bwcolor1">Hora</td>
           <td class="bwcolor1">Lunes</td>
           <td class="bwcolor1">Martes</td>
           <td class="bwcolor1">Miercoles</td>
@@ -104,6 +174,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </thead>
     </table>
   </div>
+  </div>
 
   <hr>
 
@@ -114,7 +185,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <h5><b>Reseñas</b></h5>
       </div>
       <div class="w3-rest w3-right">
+<<<<<<< HEAD
           <button id = 'btn_escribir' onclick="toggleWrite()" class="w3-button w3-light-blue w3-round-xxlarge color2 bwcolor2">Escribir Reseña</button>
+=======
+          <button id = 'btn_escribir' class="w3-button btnColor w3-round-xxlarge">Escribir Reseña</button>
+>>>>>>> 3da3f9aada27b6aad880dee243cd28867112bd0d
       </div>
     </div>
 
@@ -150,7 +225,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   </div>
 
-<div class = "modeSch" id = "scheduleApp" style="display:none">
+<div class = "modeSch container" id = "scheduleApp" style="display:none">
     <button class="w3-button w3-hover-none w3-margin" onclick="changeMode('info')"><i class="material-icons">arrow_back</i></button>
     <hr>
 
@@ -178,6 +253,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <button id = 'btn_agendar' class="w3-button w3-light-green w3-round-xxlarge w3-margin" onclick="changeMode('scheduleApp')">Confirmar</button>
 </div>
+
+<div id="message" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="sendMailTo = null; document.getElementById('message').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+        <div class="w3-container w3-padding-24">
+          <input id="mailSub" class="w3-input w3-border" type="text" placeholder="Titulo:">
+          <textarea id = "mailText" class="w3-input w3-border" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
+          <button class="w3-button btnColor w3-round-xxlarge w3-right w3-margin-top" onclick="enviarMail()">Enviar</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
 
 
 </div>
