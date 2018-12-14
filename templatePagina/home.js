@@ -29,7 +29,6 @@ var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
-<<<<<<< HEAD
     //Coso para rellenar tabla de tutores recientes
     db.ref("sesiones/").orderByChild("uidAlumno").equalTo(uid).once("value", function(u){
       console.log("holis");
@@ -73,8 +72,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       });
     }
     );
-=======
->>>>>>> a83662ff1f79985ed872e9a2c07d892ea3676670
 
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
@@ -355,24 +352,3 @@ function setSesTutor(ui){
   */
 
 
-<<<<<<< HEAD
-
-// (function(){
-//   for(i of document.getElementsByClassName('color1')){
-//     i.style.backgroundColor=color['c1'];
-//   }
-//   for(i of document.getElementsByClassName('color2')){
-//     i.style.backgroundColor=color['c2'];
-//   }
-//   for(i of document.getElementsByClassName('bwcolor1')){
-//     i.style.color=color['bw1'];
-//   }
-//   for(i of document.getElementsByClassName('bwcolor2')){
-//     i.style.color=color['bw2'];
-//   }
-//   //if(color['bw1'][4]!='0'){
-//   //  document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
-//   //}
-// }());
-=======
->>>>>>> a83662ff1f79985ed872e9a2c07d892ea3676670
