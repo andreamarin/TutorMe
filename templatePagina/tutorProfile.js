@@ -49,10 +49,12 @@ firebase.auth().onAuthStateChanged(function(user) {
         console.log(snap.val());
         var username = snap.val().username;
         var estutor = snap.val().esTutor;
-        console.log(username);
+        
 
         if(estutor === 1){
             btnProfile.href = 'tutorProfile.html';
+            
+            btnCita.style.display = "none";
             tutor = true;
             table_name = 'tutores';
         }else{
@@ -152,6 +154,7 @@ function load_profile(idT){
         }
 
         var horarios = user.horarios;
+        console.log(horarios);
         for(let h of horarios){
             var cell = document.getElementById(h);
             cell.style.backgroundColor = "#46AFDD";

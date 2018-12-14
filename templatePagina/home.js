@@ -40,12 +40,9 @@ firebase.auth().onAuthStateChanged(function(user) {
           btnProfile.href = 'tutorProfile.html';
           tutor = true;
           table_name = 'tutores';
-          setTutor(username);
-          setSesTutor(uid);
       }else{
           btnProfile.href = 'profile.html';
           table_name = 'alumnos';
-          setAlumno(uid);
       }
       console.log(table_name);
       db.ref(table_name+'/'+username).on('value', function(snap){
@@ -71,58 +68,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   }
 });
-var tutor;
-function setSesTutor(ui){
-  db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
-      if(ci != undefined){
-        var tr = document.createElement("tr");
-        db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
-          var nom = document.createElement("td");
-          nom.innerHTML = tut.val().nombre;
-          console.log(tut.val().nombre);
-          tutor = tut.val().username;
-          tr.appendChild(nom);
-          db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
-            var m = document.createElement("td");
-            console.log(mate.val());
-            m.innerHTML = mate.val().nombre;
-            tr.appendChild(m);
-            var hr = document.createElement("td");
-            hr.innerHTML = ci.val().horario;
-            var dia = document.createElement("td");
-            dia.innerHTML = ci.val().fecha;
-            console.log(ci.val().fecha);
-            tr.appendChild(dia);
-            tr.appendChild(hr);
-
-            if(ci.val().aceptada == 1){
-              var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
-              tr.appendChild(btn);
-              tProxTutor.appendChild(tr);
-
-              tProxTutor.style.display = "block";
-            }else{
-              var btnAR = document.createElement("td");
-              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button>';
-              tr.appendChild(btnAR);
-              var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
-              tr.appendChild(btn);
-              pendTutor.appendChild(tr);
-              pendTutor.style.display = "";
-            }
-            return;
-          });
-
-          return;
-        });
-      return;
-      }
-    });
-
-  }
-
 
 var alumno;
 function setTutor(usrnm){
@@ -304,3 +249,59 @@ function aceptar(key){
 //   //  document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
 //   //}
 // }());
+
+
+/*
+var tutor;
+function setSesTutor(ui){
+  db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
+      if(ci != undefined){
+        var tr = document.createElement("tr");
+        db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
+          var nom = document.createElement("td");
+          nom.innerHTML = tut.val().nombre;
+          console.log(tut.val().nombre);
+          tutor = tut.val().username;
+          tr.appendChild(nom);
+          db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
+            var m = document.createElement("td");
+            console.log(mate.val());
+            m.innerHTML = mate.val().nombre;
+            tr.appendChild(m);
+            var hr = document.createElement("td");
+            hr.innerHTML = ci.val().horario;
+            var dia = document.createElement("td");
+            dia.innerHTML = ci.val().fecha;
+            console.log(ci.val().fecha);
+            tr.appendChild(dia);
+            tr.appendChild(hr);
+
+            if(ci.val().aceptada == 1){
+              var btn = document.createElement("td");
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              tr.appendChild(btn);
+              tProxTutor.appendChild(tr);
+
+              tProxTutor.style.display = "block";
+            }else{
+              var btnAR = document.createElement("td");
+              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button>';
+              tr.appendChild(btnAR);
+              var btn = document.createElement("td");
+              btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              tr.appendChild(btn);
+              pendTutor.appendChild(tr);
+              pendTutor.style.display = "";
+            }
+            return;
+          });
+
+          return;
+        });
+      return;
+      }
+    });
+
+  }
+
+*/

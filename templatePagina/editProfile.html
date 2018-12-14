@@ -14,21 +14,73 @@
         <script type="text/javascript" src="farbtastic/farbtastic.js"></script>
         <link rel="stylesheet" href="farbtastic/farbtastic.css" type="text/css" />
         <style>
-            html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-            .material-icons.md-light { color: rgba(255, 255, 255, 1); }
-        </style>
-        <style type="text/css" media="screen">
-           .colorwell {
-             border: 2px solid #fff;
-             width: 6em;
-             text-align: center;
-             cursor: pointer;
-           }
-           body .colorwell-selected {
-             border: 2px solid #000;
-             font-weight: bold;
-           }
-        </style>
+    html,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    body{
+      background-color: rgb(253, 253, 253);
+    }
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+    body, html {
+        height: 100%;
+        line-height: 1.8;
+    }
+    
+    .w3-bar .w3-button {
+        padding: 16px;
+    }
+    
+    .header{
+      background-color:  #005B49;
+      color:white
+    }
+
+    .tableHeader{
+    background-color:  #207060;
+    color: white;
+    }
+  
+    .btnColor{
+      background-color:#82B807;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  
+    .btnColor2{
+      background-color: rgb(221, 105, 75);
+      color: white;
+      padding: 10px;
+      width: 100px;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+    
+    /* Add padding to containers */
+    .container {
+      padding: 15px;
+      margin-top:10px;
+    }
+    
+    .image--cover {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 20px;
+    
+      object-fit: cover;
+      object-position: center center;
+    }
+    
+    .border {
+      border: 1px solid #f1f1f1;
+      margin-bottom: 25px;
+    }
+  
+    .sidebar {
+    box-shadow:         0px 0 5px 0 rgb(185, 185, 185);
+    }
+    </style>
         <script type="text/javascript" charset="utf-8">
           $(document).ready(function() {
             var f = $.farbtastic('#picker');
@@ -50,34 +102,34 @@
           });
          </script>
     </head>
-<body class="w3-light-grey">
+    <body>
 
-<!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4" id="top_bar" :style="{backgroundColor:clr1['c1']}">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none 3-hover-text-light-grey" :style="{color:clr1['bw1']}" onclick="w3_open();"><i class="fa fa-bars" :style="{color:clr1['bw1']}"></i>  Menu</button>
-  <img :src="clr1['imgsrc']" class = "w3-right" style="width:50px">
-</div>
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container w3-row" style = "padding-bottom: 22px">
-    <div class="w3-col s4">
-      <img id = 'menu_pp' src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
-    </div>
-    <div class="w3-col s8 w3-bar">
-     <span>Bienvenido, <strong id = 'menu_name' ></strong></span><br>
-    </div>
-  </div>
-  <hr>
-  <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding" :style="{color:clr2['bw2'], backgroundColor:clr2['c2']}"><i class="material-icons" :style="{color:clr2['bw2']}">person</i>  Perfil</a> 
-    <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons" :style="{}">search</i>  Buscar</a>
-    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
-    <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
- </div>
-</nav>
+        <!-- Top container -->
+      <div class="w3-bar w3-top header w3-large" style="z-index:4">
+          <button style = "color: white" class="w3-bar-item w3-button w3-hide-large" onclick="w3_open();"><i class="fa fa-bars "></i>  Menu</button>
+          <img src = "img/logoTutorMeW.png" class = "w3-right" style="width:50px; margin-right:30px" id="tutorMe">
+      </div>
+      
+      <!-- Sidebar/menu -->
+      <nav  id = "mySidebar" class=" sidebar w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+        <div class="w3-container w3-row" style = "padding-bottom: 22px">
+          <div class="w3-col s4">
+            <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+          </div>
+          <div class="w3-col s8 w3-bar">
+            <span>Bienvenido, <strong id = 'menu_name'></strong></span><br>
+          </div>
+        </div>
+        <hr>
+        <div class="w3-bar-block">
+          <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+          <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
+          <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
+          <a href="search.html"  class="w3-bar-item w3-button w3-padding color2 bwcolor2"><i class="material-icons bwcolor2">search</i>  Buscar</a>
+          <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes </a>
+          <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+       </div>
+      </nav>
 
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -97,8 +149,7 @@
     <b>Materias</b><br>
     <div class="w3-row">
       <div id= "materias" class = "w3-half">
-        <input id = "materia0" class="w3-input w3-border" style="padding:3px; width:60%; margin:3px" placeholder="Materia 1">
-      </div>
+        </div>
       <div class="w3-half">
         <input id="rate" class="w3-input w3-border" style="padding:3px; width:60%; margin: 3px" type="number" placeholder="Costo por Hora">
       </div>         
@@ -108,7 +159,7 @@
     <b>Horarios</b>
     <table id = "schTable" class = "w3-table w3-border w3-bordered">
             <thead>
-              <tr class = "w3-green">
+              <tr class = "tableHeader w3-center">
                 <td>Hora</td>
                 <td>Lunes</td>
                 <td>Martes</td>
@@ -122,15 +173,16 @@
           </table>
   </div>
 
-  <!-- COLORES  -->
+  <!-- 
   <form action="" style="width: 500px;">
       <div id="picker" style="float: right;" @mousemove='func()'></div>
       <div class="form-item"><label for="color1">Color principal:</label><input type="text" id="color1" name="color1" class="colorwell col1" :value="clr1['c1']" @input="func()" @change="func()" /></div>
       <div class="form-item"><label for="color2">Color secundario:</label><input type="text" id="color2" name="color2" class="colorwell" value="#2B98F0" /></div>     
   </form>
 
-  <a id = 'btn_confirm' class="w3-button w3-light-blue w3-margin">Confirmar</a>
-  <a class="w3-button w3-red w3-margin" href="profile.html">Cancelar</a>
+-->
+  <a id = 'btn_confirm' class="w3-button btnColor w3-margin">Confirmar</a>
+  <a class="w3-button btnColor2 w3-margin" href="profile.html">Cancelar</a>
   </div>
 </div>
   <!-- End page content -->
