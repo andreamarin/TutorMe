@@ -1,9 +1,9 @@
 var tProx = document.getElementById("prox");
 var tProxTutor = document.getElementById("proxTutor");
-var prox = document.getElementById("divProx");
+var prox = document.getElementById("prox");
 var pend = document.getElementById("divPend");
 var pendTutor = document.getElementById("divPendTutor");
-var rec = document.getElementById("divReci");
+var rec = document.getElementById("tabReci");
 var tutAl = document.getElementById("TA");
 var tutAlP = document.getElementById("tutAlPen");
 var btnmail = document.getElementById("btnmail");
@@ -29,7 +29,50 @@ var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
-    
+    //Coso para rellenar tabla de tutores recientes
+    db.ref("sesiones/").orderByChild("uidAlumno").equalTo(uid).once("value", function(u){
+      console.log("holis");
+      console.log(u.val());
+      u.val().forEach(session => {
+        if(new Date(session.fecha + ", 2018") <  new Date() ){
+          var row = document.createElement("tr");
+          
+          var elem = document.createElement("td");
+          db.ref("tutores/" + session.idTutor).on("value", function(snap){
+            elem.innerHTML = snap.val().nombre;
+            row.appendChild(elem);
+            elem = document.createElement("td");
+            elem.innerHTML = snap.val().carrera;
+            row.appendChild(elem);
+            
+            var btn = document.createElement("button");
+            elem = document.createElement("td");
+            btn.className = "w3-btn w3-round-xxlarge w3-blue color2 bwcolor2";
+            btn.innerHTML = "Nueva Sesion";
+            elem.appendChild(btn);
+            row.appendChild(elem);
+            
+            elem = document.createElement("td");
+            btn = document.createElement("button");
+            btn.className = "w3-btn w3-round-xxlarge w3-blue color2 bwcolor2";
+            btn.innerHTML = "Reseña";
+            elem.appendChild(btn);
+            row.appendChild(elem);
+            
+            elem = document.createElement("td");
+            btn = document.createElement("button");
+            btn.setAttribute("onclick", 'showMail(tutor)');
+            btn.className = "w3-btn w3-round-xxlarge";
+            btn.innerHTML = '<i class="material-icons">mail</i>';
+            elem.appendChild(btn);
+            row.appendChild(elem);
+          });
+          rec.appendChild(row);
+        }
+      });
+    }
+    );
+
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
       var username = snap.val().username;
@@ -274,6 +317,7 @@ function aceptar(key){
         console.log("error "+err.message);
     });
   }
+
 
 
 // (function(){
