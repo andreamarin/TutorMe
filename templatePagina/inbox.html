@@ -49,7 +49,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <button class="w3-button w3-light-green w3-round-xxlarge w3-right color2 bwcolor2" onclick="changeMode('send')">Mandar Mensaje</button>
     <h5><b>Mensajes Recibidos</b></h5>
 
-    <div class="w3-bar-block">
+    <div id="tablaMensajes" class="w3-bar-block">
       <div class = "w3-row w3-bar-item w3-button" onclick="changeMode('message')">
         <div class = "w3-col" style="width: 50px">
           <input class="w3-check" type="checkbox">
@@ -93,10 +93,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class = "mode" id = "message" style="display:none">
   <div class = "w3-panel w3-padding">
     <button class="w3-button w3-hover-none" onclick="changeMode('inbox')"><i class="material-icons">arrow_back</i></button>
-    <h5><b>Sesion 1</b></h5>
-    <p>Andrea Marin Alarcon</p>
+    <h5 id="tituloMensaje"><b>Sesion 1</b></h5>
+    <p id="nombreMensaje">Andrea Marin Alarcon</p>
     <hr>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at nisl luctus, vehicula leo eu, congue lacus. Nunc pretium scelerisque nibh vel porta. Phasellus nibh arcu, porttitor a porta ac, hendrerit id justo. Praesent laoreet efficitur arcu, sed lacinia mauris vestibulum a. Aliquam est eros, condimentum semper egestas sit amet, consectetur eu metus. Mauris cursus sem eget tincidunt fermentum. Cras scelerisque fermentum volutpat. Integer arcu enim, accumsan sit amet hendrerit quis, convallis et metus.</p>
+    <p id="textoMensaje">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at nisl luctus, vehicula leo eu, congue lacus. Nunc pretium scelerisque nibh vel porta. Phasellus nibh arcu, porttitor a porta ac, hendrerit id justo. Praesent laoreet efficitur arcu, sed lacinia mauris vestibulum a. Aliquam est eros, condimentum semper egestas sit amet, consectetur eu metus. Mauris cursus sem eget tincidunt fermentum. Cras scelerisque fermentum volutpat. Integer arcu enim, accumsan sit amet hendrerit quis, convallis et metus.</p>
     <button class="w3-button w3-light-green w3-round-xxlarge w3-right" onclick="toggleShow('reply')">Contestar</button>
   </div>
   <div id = "reply" class = "w3-panel w3-padding w3-hide" >

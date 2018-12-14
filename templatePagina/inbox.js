@@ -6,10 +6,12 @@ color = {};
 
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
-
+var tablaMensajes = document.getElementById("tablaMensajes");
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
-
+var nombreMensaje  = document.getElementById("nombreMensaje");
+var tituloMensaje = document.getElementById("tituloMensaje");
+var textoMensaje = document.getElementById("textoMensaje");
 // Toggle between showing and hiding the sidebar, and add overlay effect
 function w3_open() {
     if (mySidebar.style.display === 'block') {
@@ -51,19 +53,20 @@ var menu_name = document.getElementById("menu_name");
 var btnLogout = document.getElementById('btn_logout');
 var btnProfile = document.getElementById('btn_profile');
 var table_name;
+var username;
 var color = {};
 
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       uid = user.uid;
-      
+
       db.ref('usernames/'+uid).once('value', function(snap){
         console.log(snap.val());
-        var username = snap.val().username;
+        username = snap.val().username;
         var estutor = snap.val().esTutor;
         console.log(username);
-  
+
         if(estutor === 1){
             btnProfile.href = 'tutorProfile.html';
             tutor = true;
@@ -86,17 +89,74 @@ firebase.auth().onAuthStateChanged(function(user) {
                 var storage = firebase.storage();
                 var pathreference = storage.ref('profile_pictures/');
                 var manref = pathreference.child(img_path);
-                manref.getdownloadurl().then(function(url){
-                    var menu_pp = document.getelementbyid("menu_pp");
+                manref.getDownloadURL().then(function(url){
+                    var menu_pp = document.getElementById("menu_pp");
                     menu_pp.src = url;
                 });
             }
         });
-  
+          showMessages();
       });
+
     }
   });
-  
+
+
+function showMessages(){
+  db.ref(table_name + "/" + username + "/mensajes").limitToLast(15).on("child_added", function(snap){
+    var div = document.createElement("div");
+    div.className = "w3-row w3-bar-item w3-button";
+    div.value = snap.key;
+    console.log("Value: " + div.value);
+    var d = document.createElement("div");
+    d.className = "w3-col";
+    d.style = "width: 50px"
+    var i = document.createElement("i");
+    i.className = "material-icons";
+    i.innerHTML = "email";
+    d.appendChild(i);
+    div.appendChild(d);
+    db.ref("usernames").orderByKey().equalTo(snap.key).on("child_added", function(f){
+        if(f.val().esTutor ==  1){
+          db.ref("tutores").orderByChild("username").equalTo(f.val().username).on("child_added", function(t){
+            var name = document.createElement("div");
+            name.className = "w3-col";
+            name.style = "width: 13%";
+            name.innerHTML = "<b>" + t.val().nombre + "</b>";
+            div.appendChild(name);
+          });
+        }else{
+          usr = f.val().username;
+          console.log(usr);
+          db.ref("alumnos").orderByChild("username").equalTo(usr).on("child_added", function(t){
+            var name = document.createElement("div");
+            name.className = "w3-col";
+            name.style = "width: 13%";
+            name.innerHTML = "<b>" + t.val().nombre + "</b>";
+            console.log(t.val().nombre);
+            div.appendChild(name);
+
+            var text = document.createElement("div");
+            text.className = "w3-rest";
+            text.innerHTML = snap.val().titulo + " - " + snap.val().mensaje.substring(0, 30);
+            div.appendChild(text);
+            tablaMensajes.appendChild(div);
+
+            div.addEventListener('click', function(){
+              i.innerHTML = "drafts";
+              changeMode('message');
+              tituloMensaje.innerHTML = snap.val().titulo;
+              nombreMensaje.innerHTML = t.val().nombre;
+              textoMensaje.innerHTML = snap.val().mensaje;
+            });
+          });
+        }
+    });
+
+  });
+}
+
+
 
 
 /*
