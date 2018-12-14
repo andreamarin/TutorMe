@@ -110,7 +110,7 @@ function setSesTutor(ui){
               btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               pendTutor.appendChild(tr);
-              pendTutor.style.display = "block";
+              pendTutor.style.display = "";
             }
             return;
           });
