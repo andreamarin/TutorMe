@@ -5,6 +5,14 @@ var db;
 var tutor, precio;
 var materias = [];
 var horarios = [];
+var btnLogout = document.getElementById('btn_logout');
+
+btnLogout.addEventListener('click', e=> {
+    firebase.auth().signOut();
+    window.location.href = "index.html"
+});
+
+
 
 (function() {
     // Get elements

@@ -25,6 +25,8 @@ btnLogout.addEventListener('click', e=> {
 
 firebase.auth().onAuthStateChanged(function(user){
     console.log("hilllloo! "+user)
+    
+    
     db.ref('usernames/'+user.uid).once('value', function(snap){
         console.log(snap.val());
         var username = snap.val().username;
@@ -32,10 +34,10 @@ firebase.auth().onAuthStateChanged(function(user){
         table_name;
         console.log(username);
         if(estutor == 1){
-            btnprofile.href = 'tutorprofile.html';
+            btnProfile.href = 'tutorprofile.html';
             table_name = 'tutores';
         }else{
-            btnprofile.href = 'profile.html';
+            btnProfile.href = 'profile.html';
             table_name = 'alumnos';
         }
 
