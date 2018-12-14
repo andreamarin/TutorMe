@@ -7,6 +7,8 @@ color = {};
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 var tablaMensajes = document.getElementById("tablaMensajes");
+
+var sendReply = document.getElementById("enviar");
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
 var nombreMensaje  = document.getElementById("nombreMensaje");
@@ -55,6 +57,7 @@ var btnProfile = document.getElementById('btn_profile');
 var table_name;
 var username;
 var color = {};
+var uid;
 
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -101,7 +104,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   });
 
-
+var replyTo;
 function showMessages(){
   db.ref(table_name + "/" + username + "/mensajes").limitToLast(15).on("child_added", function(snap){
     var div = document.createElement("div");
@@ -137,6 +140,7 @@ function showMessages(){
               tituloMensaje.innerHTML = snap.val().titulo;
               nombreMensaje.innerHTML = t.val().nombre;
               textoMensaje.innerHTML = snap.val().mensaje;
+                sendReply.value = div.value;
             });
 
           });
@@ -163,6 +167,10 @@ function showMessages(){
               tituloMensaje.innerHTML = snap.val().titulo;
               nombreMensaje.innerHTML = t.val().nombre;
               textoMensaje.innerHTML = snap.val().mensaje;
+
+              sendReply.value = div.value;
+
+
             });
           });
         }
@@ -170,6 +178,36 @@ function showMessages(){
 
   });
 }
+
+
+sendReply.addEventListener('click', function(){
+  console.log("holi");
+   var replyTo = sendReply.value;
+  subject = document.getElementById("replyT").value;
+  message = document.getElementById("replyM").value;
+  console.log(replyTo);
+  db.ref("usernames").orderByKey().equalTo(replyTo).on("child_added", function(u){
+    if(u.val().esTutor == 1){
+      db.ref("tutores/" + u.val().username + "/mensajes/" +  uid).set({
+        titulo: subject,
+        mensaje: message,
+        leido: 0
+      }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+        window.alert("Ha ocurrido un error. Intentalo de nuevo");
+      });
+    }
+    else{
+      db.ref("alumnos/" + u.val().username+ "/mensajes/" +  uid).set({
+        titulo: subject,
+        mensaje: message,
+        leido: 0
+      }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+        window.alert("Ha ocurrido un error. Intentalo de nuevo");
+      });
+    }
+  });
+toggleShow('reply');
+});
 
 
 

@@ -257,6 +257,15 @@ function aceptar(key){
           window.alert("Ha ocurrido un error. Intentalo de nuevo");
         });
       }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
     });
 
     document.getElementById('message').style.display='none';
