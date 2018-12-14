@@ -96,7 +96,7 @@ busqueda.addEventListener('keypress', function(e){
     query.orderByChild("nombre").equalTo(busqueda.value).on('child_added', function(snap){
       var a = document.createElement("a");
       a.href = "searchMateria.html";
-      a.className = "w3-bar-item w3-button w3-hover-light-blue color2 bwcolor2";
+      a.className = "w3-bar-item w3-button header color2 bwcolor2";
       a.style = "padding-left:2%";
       a.innerHTML = snap.val().nombre;
       bySub.appendChild(a);
@@ -125,7 +125,7 @@ function loadTutors(){
   var p = url.searchParams;
   p.append('tutor',snap.val().username);
   a.href = url;
-  a.className = "w3-bar-item w3-button w3-hover-light-blue";
+  a.className = "w3-bar-item w3-button tableHeader";
   a.style = "padding-left:2%";
   a.innerHTML = snap.val().nombre ;
   divT.appendChild(a);
@@ -137,7 +137,7 @@ function loadMaterias(){
   var query = db.ref("/deptos/");
   query.orderByChild("nombre").on('child_added', function(snap){
     var btn = document.createElement("button");
-    btn.className =   "w3-button w3-block w3-left-align w3-green";
+    btn.className =   "w3-button w3-block w3-left-align tableHeader";
     btn.id = snap.val().nombre;
     var id = snap.val().id;
     btn.innerHTML = snap.val().nombre;

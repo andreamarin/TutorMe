@@ -17,7 +17,9 @@ var p = new URLSearchParams(url.search.substring(1));
 var color = {};
 
 var btnCita = document.getElementById('btn_cita');
+var btnMsj = document.getElementById('btn_mensaje');
 var btnAgendar = document.getElementById('btn_agendar');
+var btnEditar = document.getElementById('btn_editar');
 var dd_materias = document.getElementById('materias');
 
 var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
@@ -85,7 +87,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 for(i=0; i<14; i++){
   row = document.createElement("tr");
   row.id = "at"+hours[i];
-  row.className = "w3-white";
+  row.style = "background-color:white";
   col =  document.createElement("td");
   
   col.style.borderRight = "1px grey solid";
@@ -94,7 +96,8 @@ for(i=0; i<14; i++){
   row.appendChild(col);
   for(j=0; j<7; j++){
     col =  document.createElement("td");
-    col.className = "w3-white w3-border";
+    col.className = "w3-border";
+    col.style = "background-color:white";
     col.id = hours[i]+days[j];
     row.appendChild(col);
   }
@@ -115,8 +118,11 @@ if(p.has('tutor')){
             console.log("The read failed: " + errorObject.code);
         });
     });
+
+    btnMsj.style.display = "none";
     btnAgendar.style.display = "none";
     btnCita.style.display = "none";
+    btnEditar.style.display = "block";
 }
 
 function load_profile(idT){
@@ -146,7 +152,7 @@ function load_profile(idT){
         var horarios = user.horarios;
         for(let h of horarios){
             var cell = document.getElementById(h);
-            cell.className = cell.className.replace("w3-white", "w3-light-blue");
+            cell.style.backgroundColor = "#46AFDD";
             ref_horarios[h.slice(2)].push(h.slice(0,2));
         }
 
