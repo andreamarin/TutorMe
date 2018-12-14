@@ -29,7 +29,7 @@ var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
-    
+
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
       var username = snap.val().username;
@@ -61,8 +61,8 @@ firebase.auth().onAuthStateChanged(function(user) {
               var storage = firebase.storage();
               var pathreference = storage.ref('profile_pictures/');
               var manref = pathreference.child(img_path);
-              manref.getdownloadurl().then(function(url){
-                  var menu_pp = document.getelementbyid("menu_pp");
+              manref.getDownloadURL().then(function(url){
+                  var menu_pp = document.getRlementById("menu_pp");
                   menu_pp.src = url;
               });
           }

@@ -124,6 +124,21 @@ function showMessages(){
             name.style = "width: 13%";
             name.innerHTML = "<b>" + t.val().nombre + "</b>";
             div.appendChild(name);
+
+            var text = document.createElement("div");
+            text.className = "w3-rest";
+            text.innerHTML = snap.val().titulo + " - " + snap.val().mensaje.substring(0, 90) + "...";
+            div.appendChild(text);
+            tablaMensajes.appendChild(div);
+
+            div.addEventListener('click', function(){
+              i.innerHTML = "drafts";
+              changeMode('message');
+              tituloMensaje.innerHTML = snap.val().titulo;
+              nombreMensaje.innerHTML = t.val().nombre;
+              textoMensaje.innerHTML = snap.val().mensaje;
+            });
+
           });
         }else{
           usr = f.val().username;
@@ -138,7 +153,7 @@ function showMessages(){
 
             var text = document.createElement("div");
             text.className = "w3-rest";
-            text.innerHTML = snap.val().titulo + " - " + snap.val().mensaje.substring(0, 30);
+            text.innerHTML = snap.val().titulo + " - " + snap.val().mensaje.substring(0, 90) + "...";
             div.appendChild(text);
             tablaMensajes.appendChild(div);
 
