@@ -46,10 +46,10 @@ firebase.auth().onAuthStateChanged(function(user) {
       }
       console.log(table_name);
       db.ref(table_name+'/'+username).on('value', function(snap){
-          //color['c1'] = snap.val().color1;
-          //color['c2'] = snap.val().color2;
-          //color['bw1'] = snap.val().bw1;
-          //color['bw2'] = snap.val().bw2;
+          color['c1'] = snap.val().color1;
+          color['c2'] = snap.val().color2;
+          color['bw1'] = snap.val().bw1;
+          color['bw2'] = snap.val().bw2;
           console.log(snap.val());
           menu_name.innerHTML = snap.val().nombre.split(" ")[0];
           var img_path = snap.val().pp_path;
@@ -232,23 +232,24 @@ function aceptar(key){
   }
 
 
-// (function(){
-//   for(i of document.getElementsByClassName('color1')){
-//     i.style.backgroundColor=color['c1'];
-//   }
-//   for(i of document.getElementsByClassName('color2')){
-//     i.style.backgroundColor=color['c2'];
-//   }
-//   for(i of document.getElementsByClassName('bwcolor1')){
-//     i.style.color=color['bw1'];
-//   }
-//   for(i of document.getElementsByClassName('bwcolor2')){
-//     i.style.color=color['bw2'];
-//   }
-//   //if(color['bw1'][4]!='0'){
-//   //  document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
-//   //}
-// }());
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
+  if(color['bw1'][4]!='0'){
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
+  }
+}
 
 
 /*
@@ -303,5 +304,6 @@ function setSesTutor(ui){
     });
 
   }
+  */
 
-*/
+

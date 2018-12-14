@@ -185,11 +185,24 @@
         <h5><b>Reseñas</b></h5>
       </div>
       <div class="w3-rest w3-right">
+<<<<<<< HEAD
+          <button id = 'btn_escribir' onclick="toggleWrite()" class="w3-button w3-light-blue w3-round-xxlarge color2 bwcolor2">Escribir Reseña</button>
+=======
           <button id = 'btn_escribir' class="w3-button btnColor w3-round-xxlarge">Escribir Reseña</button>
+>>>>>>> 3da3f9aada27b6aad880dee243cd28867112bd0d
       </div>
     </div>
 
+<div id="write" style="display:none">
+  <textarea id="writeZone" class="w3-input w3-border write" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
+<div class="w3-rest w3-right w3-padding">
+ <button id = 'btn_cancelar' onclick="toggleWrite()" class="w3-button w3-light-blue w3-round-xxlarge color2 bwcolor2">Cancelar</button>
+ <button id = 'btn_enviar' onclick="sendRev()" class="w3-button w3-light-blue w3-round-xxlarge color2 bwcolor2">Enviar</button> 
+</div>
+</div>
 
+<div id="all_revs">
+  <!--
       <div class="w3-panel w3-leftbar">
         <div class="w3-row-padding w3-cell-row">
           <div class="w3-rest">
@@ -205,6 +218,8 @@
       </div>
       <p> Cras maximus leo id porta congue. Donec pretium eros aliquet, faucibus mauris in, convallis lorem. Aenean auctor justo a elit rhoncus, in lacinia libero finibus. Aenean sollicitudin tellus non interdum cursus. Mauris vitae felis erat. Cras quis dolor venenatis, tincidunt arcu vel, ultrices enim.</p>
     </div>
+  </div>
+  -->
   </div>
   </div>
   </div>

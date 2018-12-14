@@ -12,9 +12,12 @@ var reviews_table = document.getElementById("reviews");
 var db = firebase.database();
 var ref_horarios = {'Mon':[], 'Tue':[], 'Wed':[], 'Thu':[], 'Fri':[], 'Sat':[], 'Sun':[]};
 var btnEscribir = document.getElementById('btn_escribir');
+var writeZ = document.getElementById("write");
+var writeZone = document.getElementById("writeZone");
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
 var color = {};
+var resenas = [];
 
 var btnCita = document.getElementById('btn_cita');
 var btnMsj = document.getElementById('btn_mensaje');
@@ -131,6 +134,8 @@ if(p.has('tutor')){
 
 function load_profile(idT){
     db.ref("tutores/"+idT).on("value", function(snap){
+        console.log("id tutor:");
+        console.log(idT);
         var user = snap.val();
         nom.innerHTML = user.nombre + nom.innerHTML; //Cambiar por nombre
         mail.innerHTML = ' '+idT+'@itam.mx' //Cambiar por correo
@@ -339,6 +344,26 @@ btnAgendar.addEventListener('click', e => {
     });
 });
 
+function toggleWrite(){
+    var m = writeZ.style.display;
+    writeZ.style.display = m == "none" ? "block" : "none";
+}
+
+function sendRev(){
+    if(writeZone.value.trim() == ""){return;}
+    var options = {weekday: 'short', day:'2-digit', month:'long'};
+    //uidAlumno:"321321"; 
+    uidAlumno: firebase.auth().currentUser.uid;
+    db.ref('tutores/'+p.get("tutor")+"/resenas/"+uidAlumno+"/").update({
+        fecha: new Date().toLocaleDateString('en-US', options),
+        text: writeZone.value.trim()
+    }).then( e => window.alert('Tu reseña fue registrada')).catch(err => {
+        window.alert('Ha ocurrido un error. Inténtalo de nuevo.');
+        console.log(fecha);
+    });
+    toggleWrite();
+}
+
 function upload_sesion(sesId){
     if(ddl.value === 'select' || ddl_fechas.value === 'select' || ddl_horarios.value === 'select'){
         window.alert("Debes llenar todos los campos.");
@@ -370,20 +395,67 @@ function remove_options(){
     }
 }
 
-(function(){
-  for(i of document.getElementsByClassName('color1')){
-    i.style.backgroundColor=color['c1'];
-  }
-  for(i of document.getElementsByClassName('color2')){
-    i.style.backgroundColor=color['c2'];
-  }
-  for(i of document.getElementsByClassName('bwcolor1')){
-    i.style.color=color['bw1'];
-  }
-  for(i of document.getElementsByClassName('bwcolor2')){
-    i.style.color=color['bw2'];
-  }
+
+function loadRevs(){
+    db.ref("tutores/"+p.get("tutor")+"/resenas").once("value", function(snapshot) {
+        arr = snapshot.val();
+    })
+    for(i in arr){
+        var revName;
+        var h5name = document.createElement("h5");
+        db.ref("usernames/").once("value", function(snapshot) {
+            h5name.innerText = snapshot.val()[i]["username"];
+            console.log(revName)
+        })
+        console.log(revName)
+
+        var dout = document.createElement("div");
+        dout.className = "w3-panel w3-leftbar";
+        var din = document.createElement("div");
+        din.className = "w3-row-padding w3-cell-row";
+        var dinn = document.createElement("div");
+        dinn.className = "w3-rest";
+        
+        
+        var pRev = document.createElement("p");
+        pRev.innerText = arr[i]["text"]
+        din.appendChild(h5name);
+
+        dinn.appendChild(h5name);
+        din.appendChild(dinn);
+        din.appendChild(pRev);
+        dout.appendChild(din);
+
+        document.getElementById("all_revs").appendChild(dout);
+    }
+    /*
+    <div class="w3-panel w3-leftbar">
+        <div class="w3-row-padding w3-cell-row">
+          <div class="w3-rest">
+            <h5>Miguel Gonzalez Borja</h5>
+          </div>
+          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent justo purus, mattis condimentum metus consectetur, laoreet condimentum dui. Quisque rutrum ante id dignissim pellentesque. Vivamus dignissim dui tortor, vel rhoncus risus tincidunt eget. Donec dictum et risus eget suscipit. Donec venenatis tristique porttitor.</p>
+        </div>
+    </div>
+    */
+}
+
+//color ={"c1":"#F00", "c2":"#0f0", "bw1":"#0f0", "bw2":"#ff0"};
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
   if(color['bw1'][4]!='0'){
-    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
   }
-}());
+}

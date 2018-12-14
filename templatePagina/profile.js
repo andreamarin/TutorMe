@@ -110,20 +110,21 @@ function get_values(id){
     document.getElementById("email").textContent = ""+id+"@itam.mx";
 }
 
-(function(){
-  for(i of document.getElementsByClassName('color1')){
-    i.style.backgroundColor=color['c1'];
-  }
-  for(i of document.getElementsByClassName('color2')){
-    i.style.backgroundColor=color['c2'];
-  }
-  for(i of document.getElementsByClassName('bwcolor1')){
-    i.style.color=color['bw1'];
-  }
-  for(i of document.getElementsByClassName('bwcolor2')){
-    i.style.color=color['bw2'];
-  }
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
   if(color['bw1'][4]!='0'){
-    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
   }
-}());
+}
