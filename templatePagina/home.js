@@ -62,7 +62,7 @@ firebase.auth().onAuthStateChanged(function(user) {
               var pathreference = storage.ref('profile_pictures/');
               var manref = pathreference.child(img_path);
               manref.getDownloadURL().then(function(url){
-                  var menu_pp = document.getRlementById("menu_pp");
+                  var menu_pp = document.getElementById("menu_pp");
                   menu_pp.src = url;
               });
           }

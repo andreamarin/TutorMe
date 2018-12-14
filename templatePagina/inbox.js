@@ -14,7 +14,14 @@ var overlayBg = document.getElementById("myOverlay");
 var nombreMensaje  = document.getElementById("nombreMensaje");
 var tituloMensaje = document.getElementById("tituloMensaje");
 var textoMensaje = document.getElementById("textoMensaje");
+var btnLogout = document.getElementById('btn_logout');
 // Toggle between showing and hiding the sidebar, and add overlay effect
+
+btnLogout.addEventListener('click', e=> {
+    firebase.auth().signOut();
+    window.location.href = "index.html"
+});
+
 function w3_open() {
     if (mySidebar.style.display === 'block') {
         mySidebar.style.display = 'none';
