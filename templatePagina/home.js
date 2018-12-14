@@ -6,6 +6,7 @@ var pendTutor = document.getElementById("divPendTutor");
 var rec = document.getElementById("divReci");
 var tutAl = document.getElementById("TA");
 var tutAlP = document.getElementById("tutAlPen");
+var btnmail = document.getElementById("btnmail");
 var db = firebase.database();
 
 // Sidebar elements
@@ -16,7 +17,7 @@ var table_name;
 var color = {};
 var tutor = false;
 
-
+var sendMailTo;
 
 btnLogout.addEventListener('click', e=> {
     firebase.auth().signOut();
@@ -70,7 +71,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   }
 });
-
+var tutor;
 function setSesTutor(ui){
   db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
       if(ci != undefined){
@@ -79,6 +80,7 @@ function setSesTutor(ui){
           var nom = document.createElement("td");
           nom.innerHTML = tut.val().nombre;
           console.log(tut.val().nombre);
+          tutor = tut.val().username;
           tr.appendChild(nom);
           db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
             var m = document.createElement("td");
@@ -95,7 +97,7 @@ function setSesTutor(ui){
 
             if(ci.val().aceptada == 1){
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               tProxTutor.appendChild(tr);
 
@@ -105,7 +107,7 @@ function setSesTutor(ui){
               btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button>';
               tr.appendChild(btnAR);
               var btn = document.createElement("td");
-              btn.innerHTML = '<button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               pendTutor.appendChild(tr);
               pendTutor.style.display = "block";
@@ -122,7 +124,7 @@ function setSesTutor(ui){
   }
 
 
-
+var alumno;
 function setTutor(usrnm){
   console.log(usrnm);
   tutAl.innerHTML = "Alumno";
@@ -131,7 +133,7 @@ function setTutor(usrnm){
         var tr = document.createElement("tr");
         console.log(c.val().idTutor);
         db.ref("/usernames/").orderByKey().equalTo(c.val().uidAlumno).on("child_added", function(sn){
-          var alumno = sn.val().username;
+          alumno = sn.val().username;
           db.ref("/alumnos/").orderByChild("username").equalTo(alumno).on("child_added", function(al){
             var nom = document.createElement("td");
             nom.innerHTML = al.val().nombre;
@@ -149,7 +151,7 @@ function setTutor(usrnm){
               tr.appendChild(hr);
               if(c.val().aceptada == 1){
                 var btn = document.createElement("td");
-                btn.innerHTML = '<button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+                btn.innerHTML = '<button onclick=showMail(alumno) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
                 tr.appendChild(btn);
                 tProx.appendChild(tr);
               }else{
@@ -157,7 +159,7 @@ function setTutor(usrnm){
                 btnAR.innerHTML = '<button onclick= aceptar(' + c.key +') class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + c.key +') class="w3-btn w3-round-xxlarge w3-red">Rechazar</button>';
                 tr.appendChild(btnAR);
                 var btn = document.createElement("td");
-                btn.innerHTML = '<button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+                btn.innerHTML = '<button onclick=showMail(alumno) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
                 tr.appendChild(btn);
                 pend.appendChild(tr);
               }
@@ -172,6 +174,7 @@ function setTutor(usrnm){
     });
 }
 
+var usrTut;
 function setAlumno(ui){
   tutAl.innerHTML = "Tutor";
   tutAlP.innerHTML = "Tutor";
@@ -180,6 +183,7 @@ function setAlumno(ui){
         db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
           var nom = document.createElement("td");
           nom.innerHTML = tut.val().nombre;
+          usrTut = tut.val().username;
           console.log(tut.val().nombre);
           tr.appendChild(nom);
           db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
@@ -196,15 +200,15 @@ function setAlumno(ui){
             tr.appendChild(hr);
             if(ci.val().aceptada == 1){
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               tProx.appendChild(tr);
             }else{
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(usrTut) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
 
-              
+
               pend.appendChild(tr);
             }
             return;
@@ -217,7 +221,8 @@ function setAlumno(ui){
 
   }
 
-  function aceptar(key){
+
+function aceptar(key){
     var ac = {};
     ac['aceptada'] = 1;
     var ref = db.ref("/sesiones/" + key);
@@ -229,6 +234,32 @@ function setAlumno(ui){
     .catch(err => {
         console.log("error "+err.message);
     });
+
+  }
+
+  function showMail(sendTo){
+    console.log("Send mail to: " + sendTo);
+    sendMailTo = sendTo;
+    document.getElementById('message').style.display='block';
+  }
+
+  function enviarMail(){
+    subject = document.getElementById("mailSub").value;
+    message = document.getElementById("mailText").value;
+
+    db.ref("usernames").orderByChild("username").equalTo(sendMailTo).on("child_added", function(u){
+      if(u.val().esTutor == 1){
+        db.ref("tutores/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+    });
+
+    document.getElementById('message').style.display='none';
 
   }
 
