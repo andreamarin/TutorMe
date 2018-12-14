@@ -312,7 +312,7 @@ ddl_fechas.addEventListener('change', e => {
 btnAgendar.addEventListener('click', e => {
     db.ref('sesiones/').once('value', function(snap){
         var id = snap.numChildren();
-        upload_sesion(id);
+        upload_sesion(id+1);
     });
 });
 
@@ -337,6 +337,7 @@ function sendRev(){
 }
 
 function upload_sesion(sesId){
+    console.log(sesId);
     if(ddl.value === 'select' || ddl_fechas.value === 'select' || ddl_horarios.value === 'select'){
         window.alert("Debes llenar todos los campos.");
         return;

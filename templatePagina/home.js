@@ -30,6 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
     //Coso para rellenar tabla de tutores recientes
+    /*
     db.ref("sesiones/").orderByChild("uidAlumno").equalTo(uid).once("value", function(u){
       console.log("holis");
       console.log(u.val());
@@ -68,10 +69,13 @@ firebase.auth().onAuthStateChanged(function(user) {
             row.appendChild(elem);
           });
           rec.appendChild(row);
+        }else{
+          
         }
+        
       });
-    }
-    );
+      
+    });*/
 
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
@@ -83,9 +87,11 @@ firebase.auth().onAuthStateChanged(function(user) {
           btnProfile.href = 'tutorProfile.html';
           tutor = true;
           table_name = 'tutores';
+          setTutor(username);
       }else{
           btnProfile.href = 'profile.html';
           table_name = 'alumnos';
+          setAlumno(uid);
       }
       console.log(table_name);
       db.ref(table_name+'/'+username).on('value', function(snap){
@@ -122,6 +128,7 @@ function setTutor(usrnm){
   db.ref("/sesiones/").orderByChild("idTutor").equalTo(usrnm).on("child_added", function(c){
         var tr = document.createElement("tr");
         console.log(c.val().idTutor);
+        if(new Date(c.val().fecha + ", 2018") >  new Date() ){
         db.ref("/usernames/").orderByKey().equalTo(c.val().uidAlumno).on("child_added", function(sn){
           alumno = sn.val().username;
           db.ref("/alumnos/").orderByChild("username").equalTo(alumno).on("child_added", function(al){
@@ -160,6 +167,7 @@ function setTutor(usrnm){
           });
           return;
         });
+      }
       return;
     });
 }
@@ -169,7 +177,8 @@ function setAlumno(ui){
   tutAl.innerHTML = "Tutor";
   tutAlP.innerHTML = "Tutor";
   db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
-        var tr = document.createElement("tr");
+      var tr = document.createElement("tr");
+      if(new Date(ci.val().fecha + ", 2018") >  new Date() ){
         db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
           var nom = document.createElement("td");
           nom.innerHTML = tut.val().nombre;
@@ -206,10 +215,43 @@ function setAlumno(ui){
 
           return;
         });
+      }else{
+        db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
+          var nom = document.createElement("td");
+          nom.innerHTML = tut.val().nombre;
+          usrTut = tut.val().username;
+          console.log(tut.val().nombre);
+          tr.appendChild(nom);
+          db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
+            var m = document.createElement("td");
+            console.log(mate.val());
+            m.innerHTML = mate.val().nombre;
+            tr.appendChild(m);
+            var hr = document.createElement("td");
+            hr.innerHTML = ci.val().horario;
+            var dia = document.createElement("td");
+            dia.innerHTML = ci.val().fecha;
+            console.log(ci.val().fecha);
+            tr.appendChild(dia);
+            tr.appendChild(hr);
+            if(ci.val().aceptada == 1){
+              var btn = document.createElement("td");
+              btn.innerHTML = '<button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
+              tr.appendChild(btn);
+              rec.appendChild(tr);
+            }
+            return;
+          });
+
+          return;
+        });
+      }
+      
       return;
     });
 
   }
+
 
 
 function aceptar(key){
