@@ -10,38 +10,108 @@
         <link rel="stylesheet" href="farbtastic.css" type="text/css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
-            html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-        </style>
-    </head>
-<body class="w3-light-grey">
-
-
-<!-- Top container -->
-<div class="w3-bar w3-top w3-green w3-large color1" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey bwcolor1" onclick="w3_open();"><i class="fa fa-bars bwcolor1"></i>  Menu</button>
-  <img src = "img/logoTutorMe.png" class = "w3-right" style="width:50px" id="tutorMe">
-</div>
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container w3-row" style = "padding-bottom: 22px">
-    <div class="w3-col s4">
-      <img id = 'menu_pp' src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+            html,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+            body{
+              background-color: rgb(253, 253, 253);
+            }
+            body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+            body, html {
+                height: 100%;
+                line-height: 1.8;
+            }
+            
+            .w3-bar .w3-button {
+                padding: 16px;
+            }
+            
+            .header{
+              background-color:  #005B49;
+            }
+          
+            .tableHeader{
+              background-color:  #207060;
+              color: white;
+            }
+          
+            .btnColor{
+              background-color:#46AFDD;
+              color: black;
+              padding: 10px;
+              width: 150px;
+            }
+          
+            .btnColor2{
+              background-color: #82B807;
+              color: black;
+              padding: 10px;
+              width: 150px;
+            }
+            
+            /* Add padding to containers */
+            .container {
+              padding: 10px;
+              margin-top:10px;
+            }
+            
+            .image--cover {
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              margin: 20px;
+            
+              object-fit: cover;
+              object-position: center center;
+            }
+          
+            .column {
+              float: left;
+            }
+          
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            
+            .border {
+              border: 1px solid #f1f1f1;
+              margin-bottom: 25px;
+            }
+          
+            .sidebar {
+            box-shadow:         0px 0 5px 0 rgb(185, 185, 185);
+            }
+            </style>
+          </head>
+  <body >
+          
+          <!-- Top container -->
+    <div class="w3-bar w3-top header w3-large" style="z-index:4">
+      <button style = "color: white" class="w3-bar-item w3-button w3-hide-large" onclick="w3_open();"><i class="fa fa-bars "></i>  Menu</button>
+      <img src = "img/logoTutorMeW.png" class = "w3-right" style="width:50px; margin-right:30px" id="tutorMe">
     </div>
-    <div class="w3-col s8 w3-bar">
-     <span>Bienvenido, <strong id = 'menu_name'></strong></span><br>
-    </div>
-  </div>
-  <hr>
-  <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
-    <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding w3-blue color2 bwcolor2"><i class="material-icons bwcolor2">person</i>  Perfil</a> 
-    <a href="search.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">search</i>  Buscar</a>
-    <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes <span class="w3-badge w3-red">5</span></a>
-    <a id = "btn_logout" class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
- </div>
-</nav>
+          
+          <!-- Sidebar/menu -->
+    <nav  id = "mySidebar" class="sidebar w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+      <div class="w3-container w3-row" style = "padding-bottom: 22px">
+      <div class="w3-col s4">
+          <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
+      </div>
+      <div class="w3-col s8 w3-bar">
+        <span>Bienvenido, <strong id = 'menu_name'></strong></span><br>
+      </div>
+      </div>
+      <hr>
+      <div class="w3-bar-block">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+        <a href="home.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">home</i>  Inicio</a>
+        <a id = 'btn_profile' class="w3-bar-item w3-button w3-padding"><i class="material-icons">person</i>  Perfil</a>
+        <a href="search.html" class="w3-bar-item w3-button w3-padding color2 bwcolor2"><i class="material-icons bwcolor2">search</i>  Buscar</a>
+        <a href="inbox.html" class="w3-bar-item w3-button w3-padding"><i class="material-icons">inbox</i>  Mensajes </a>
+        <a id = 'btn_logout' class="w3-bar-item w3-button w3-padding"><i class="material-icons">logout</i>  Cerrar Sesion</a>
+      </div>
+    </nav>
 
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -49,39 +119,25 @@
 
 <!-- !PAGE CONTENT! -->
 
-<!-- Color Picker -->
-
 
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-  <hr>
-  <!-- Nombre, usuario, correo -->
-  <div class="w3-panel">
-    <div class="w3-row-padding w3-cell-row">
-      <div class="w3-col" style="width:15%">
-        <img id = "profile_img" src="img/avatar.png" style="width:100%" class="w3-square w3-margin-right" alt="No hay foto :( ">
-      </div>
-      <div class="w3-rest">
-        <table class="w3-table w3-large">
-          <tr>
-            <td id ="name"></td>
-          </tr>
-          <tr>
-            <td id = "username"></td>
-          </tr>
-          <tr>
-            <td id = "email"></td>
-          </tr>
-          <tr>
-            <td id = "carreras"></td>
-        </tr>
-        </table>
-      </div>
-      <div class="w3-rest w3-right">
-        <a class="w3-button w3-light-green w3-round-xxlarge" href="editProfile.html">Editar</a>
-      </div>
+
+  <div class="w3-panel container">
+      <div class = row>
+        <div class="column" style="width:20%">
+          <img id = 'profile_img' src="img/avatar.png" class="image--cover" alt="No hay foto :( ">
+        </div>
+
+        <div class  = "column container" style = "width: 50%">
+            <label ><h3 id = "name"></h3></label> 
+            <label ><h5 id = "carreras">  </h5 ></label>
+            <label id = "email"><b >  </b></label>
+        </div>
+
+        <div class = "column container" style = "width:15%">
+          <a style = "display: block;" class="w3-button color2 bwcolor2 w3-margin" href="editProfile.html"> <i class="material-icons" style="font-size:35px;">settings</i> </a>
+        </div>
     </div>
-    
-  </div>
   <!-- End page content -->
 </div>
 

@@ -1,3 +1,22 @@
+  // Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
+    authDomain: "tutorme-9b2cb.firebaseapp.com",
+    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
+    projectId: "tutorme-9b2cb",
+    storageBucket: "tutorme-9b2cb.appspot.com",
+    messagingSenderId: "616196369980"
+};
+firebase.initializeApp(config);
+
+var db = firebase.database();
+var tutor,id, uid;
+var btnConfirm;
+var user, pswd, pswd2, carrera, precio;
+var changes, changeUsr, changePswd, changeCarrera, changeRate, changeMat, changeHrs;
+var materias = [];
+var horarios = [];
+var data;
 
 var mySidebar = document.getElementById("mySidebar");
 
@@ -63,14 +82,31 @@ function toggle(modeid) {
     }
 }
 
+var catalogoMaterias = [];
+
+var matRef = db.ref("materias");
+matRef.on("value", function(snapshot){
+  catalogoMaterias = snapshot.val();
+}, function(errorObject){
+  console.log("Read fail: " + errorObject.code)
+});
+
+var totMat=0;
+
 function addMat(){
-    var mat = document.createElement("input");
-    mat.className = "w3-input w3-border";
+    var mat = document.createElement("select");
     mat.style.padding = "3px";
     mat.style.width = "60%";
     mat.style.margin = "3px";
-    mat.placeholder = "Materia "+ (totMat+1)
     mat.id = "materia"+ (totMat++);
+    
+    for(i = 0; i < catalogoMaterias.length; i++){
+        var elem = document.createElement("option");
+        elem.value = catalogoMaterias[i].id;
+        elem.text = catalogoMaterias[i].nombre;
+        mat.appendChild(elem);
+    }
+    
     document.getElementById("materias").appendChild(mat);
 
 }
@@ -92,25 +128,6 @@ function schToggle(id){
     x.setAttribute("active", "1");
   }
 }
-
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBsRQLAHqwZ8GGn4ZOYwMuN-Rt412Evf5c",
-    authDomain: "tutorme-9b2cb.firebaseapp.com",
-    databaseURL: "https://tutorme-9b2cb.firebaseio.com",
-    projectId: "tutorme-9b2cb",
-    storageBucket: "tutorme-9b2cb.appspot.com",
-    messagingSenderId: "616196369980"
-  };
-  firebase.initializeApp(config);
-
-var db, tutor,id, uid;
-var btnConfirm;
-var user, pswd, pswd2, carrera, precio;
-var changes, changeUsr, changePswd, changeCarrera, changeRate, changeMat, changeHrs;
-var materias = [];
-var horarios = [];
-var data;
 
 // Sidebar elements
 var menu_name = document.getElementById("menu_name");
@@ -140,6 +157,9 @@ firebase.auth().onAuthStateChanged(function(user) {
             btnProfile.href = 'profile.html';
             table_name = 'alumnos';
         }
+
+        console.log(btnProfile.href);
+
         console.log(table_name);
         db.ref(table_name+'/'+username).on('value', function(snap){
             //color['c1'] = snap.val().color1;
@@ -201,7 +221,6 @@ var color_ori = {};
 
 btnConfirm.addEventListener('click', e => {
     get_elements();
-    update_db();
 });
 
 // Vue reactive elements
@@ -277,44 +296,52 @@ function get_elements(){
     changeCarrera = (carrera != "");
     changePswd = (pswd != "");
 
-    var hours = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
-    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
 
     if(tutor == 1){
-        var refUsr = db.ref('tutores'/id);
-        refUsr.on('value', function(snapshot){
+        db.ref("tutores/"+id).once('value', function(snapshot){
+            var hours = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
+            var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            
             var usr = snapshot.val();
             materias = usr.materias;
             horarios = usr.horarios;
-        });
 
-        var mat_length = materias.length;
+            var mat_length = materias.length;
 
-        precio = document.getElementById("rate").value;
-        changePrecio = (precio != "");
+            precio = document.getElementById("rate").value;
+            changePrecio = (precio != "");
 
-        var mat_dd = document.getElementById("materia0");
-        var i = 0;
-        do{
-            materias.push(mat_dd.options[mat_dd.selectedIndex].value);
-            i++;
-            mat_dd = document.getElementById("materia"+i);
-        }while(mat_dd != null);
 
-        changeMat = (materias.length != mat_length);
-
-        var h;
-        days.forEach(function(day) {
-            hours.forEach(function(hrs){
-                horario = hrs+day;
-                h = document.getElementById(horario).getAttribute('active');
-                if(h === "1"){
-                    horarios.push(horario);
-                }
+            var h;
+            days.forEach(function(day) {
+                hours.forEach(function(hrs){
+                    horario = hrs+day;
+                    h = document.getElementById(horario).getAttribute('active');
+                    if(h === "1"){
+                        horarios.push(horario);
+                    }
+                });
             });
-        });
 
-        changeHrs = (horarios != []);
+            changeHrs = (horarios.length != 0);
+
+            var mat_dd = document.getElementById("materia0");
+            var i = 0;
+            while(mat_dd != null){
+                materias.push(mat_dd.options[mat_dd.selectedIndex].value);
+                i++;
+                mat_dd = document.getElementById("materia"+i);
+            }
+
+
+            changeMat = (materias.length != mat_length);
+
+            update_db();
+
+        });
+    }else{
+        update_db();
     }
 }
 
@@ -361,7 +388,7 @@ function update_db(){
 
     if(tutor == 1){
         if(changeRate){data['rate'] = precio; changes = true;}
-        if(changeHrs){data['horarios'] = horarios; changes = true;}
+        if(changeHrs){console.log("Cambio de horarios"); data['horarios'] = horarios; changes = true;}
         if(changeMat){data['materias'] = materias; changes = true;}
     }
 
@@ -371,6 +398,7 @@ function update_db(){
         var res = usrRef.update(data);
 
         res.then(e => {
+            window.alert('Actualización exitosa.');
             console.log('Update exitoso');
         })
         .catch(err => {

@@ -29,6 +29,7 @@ var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
+<<<<<<< HEAD
     //Coso para rellenar tabla de tutores recientes
     db.ref("sesiones/").orderByChild("uidAlumno").equalTo(uid).once("value", function(u){
       console.log("holis");
@@ -72,6 +73,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       });
     }
     );
+=======
+>>>>>>> a83662ff1f79985ed872e9a2c07d892ea3676670
 
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
@@ -83,19 +86,16 @@ firebase.auth().onAuthStateChanged(function(user) {
           btnProfile.href = 'tutorProfile.html';
           tutor = true;
           table_name = 'tutores';
-          setTutor(username);
-          setSesTutor(uid);
       }else{
           btnProfile.href = 'profile.html';
           table_name = 'alumnos';
-          setAlumno(uid);
       }
       console.log(table_name);
       db.ref(table_name+'/'+username).on('value', function(snap){
-          //color['c1'] = snap.val().color1;
-          //color['c2'] = snap.val().color2;
-          //color['bw1'] = snap.val().bw1;
-          //color['bw2'] = snap.val().bw2;
+          color['c1'] = snap.val().color1;
+          color['c2'] = snap.val().color2;
+          color['bw1'] = snap.val().bw1;
+          color['bw2'] = snap.val().bw2;
           console.log(snap.val());
           menu_name.innerHTML = snap.val().nombre.split(" ")[0];
           var img_path = snap.val().pp_path;
@@ -104,8 +104,8 @@ firebase.auth().onAuthStateChanged(function(user) {
               var storage = firebase.storage();
               var pathreference = storage.ref('profile_pictures/');
               var manref = pathreference.child(img_path);
-              manref.getdownloadurl().then(function(url){
-                  var menu_pp = document.getelementbyid("menu_pp");
+              manref.getDownloadURL().then(function(url){
+                  var menu_pp = document.getElementById("menu_pp");
                   menu_pp.src = url;
               });
           }
@@ -114,61 +114,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   }
 });
-var tutor;
-function setSesTutor(ui){
-  db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
-      if(ci != undefined){
-        var tr = document.createElement("tr");
-        db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
-          var nom = document.createElement("td");
-          nom.innerHTML = tut.val().nombre;
-          console.log(tut.val().nombre);
-          tutor = tut.val().username;
-          tr.appendChild(nom);
-          db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
-            var m = document.createElement("td");
-            console.log(mate.val());
-            m.innerHTML = mate.val().nombre;
-            tr.appendChild(m);
-            var hr = document.createElement("td");
-            hr.innerHTML = ci.val().horario;
-            var dia = document.createElement("td");
-            dia.innerHTML = ci.val().fecha;
-            console.log(ci.val().fecha);
-            tr.appendChild(dia);
-            tr.appendChild(hr);
-
-            if(ci.val().aceptada == 1){
-              var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
-              tr.appendChild(btn);
-              tProxTutor.appendChild(tr);
-
-              tProxTutor.style.display = "block";
-            }else{
-              var btnAR = document.createElement("td");
-              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button>';
-              tr.appendChild(btnAR);
-              var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
-              tr.appendChild(btn);
-              pendTutor.appendChild(tr);
-              pendTutor.style.display = "block";
-            }
-            return;
-          });
-
-          return;
-        });
-      return;
-      }
-    });
-
-  }
-
 
 var alumno;
 function setTutor(usrnm){
+  var startDate = new Date();
+  
   console.log(usrnm);
   tutAl.innerHTML = "Alumno";
   tutAlP.innerHTML = "Alumno";
@@ -199,7 +149,7 @@ function setTutor(usrnm){
                 tProx.appendChild(tr);
               }else{
                 var btnAR = document.createElement("td");
-                btnAR.innerHTML = '<button onclick= aceptar(' + c.key +') class="w3-btn w3-round-xxlarge w3-blue">Aceptar</button> <button onclick= rechazar(' + c.key +') class="w3-btn w3-round-xxlarge w3-red">Rechazar</button>';
+                btnAR.innerHTML = '<button onclick= aceptar(' + c.key +') class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + c.key +') class="w3-btn w3-round-xxlarge btnColor2">Rechazar</button>';
                 tr.appendChild(btnAR);
                 var btn = document.createElement("td");
                 btn.innerHTML = '<button onclick=showMail(alumno) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
@@ -243,12 +193,12 @@ function setAlumno(ui){
             tr.appendChild(hr);
             if(ci.val().aceptada == 1){
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick= showMail(usrTut) class="w3-btn w3-round-xxlarge" ><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               tProx.appendChild(tr);
             }else{
               var btn = document.createElement("td");
-              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge w3-red">Cancelar</button><button onclick=showMail(usrTut) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(usrTut) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
 
 
@@ -300,6 +250,15 @@ function aceptar(key){
           window.alert("Ha ocurrido un error. Intentalo de nuevo");
         });
       }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
     });
 
     document.getElementById('message').style.display='none';
@@ -308,17 +267,95 @@ function aceptar(key){
 
   function rechazar(key){
     console.log("remove");
-    var ref = db.ref("/sesiones/" + key);
-    var res = ref.remove();
-    res.then(e => {
-        console.log('Update exitoso');
-    })
-    .catch(err => {
-        console.log("error "+err.message);
-    });
+      if(confirm("¿Estás seguro que quieres cancelar la sesión?")){
+      var ref = db.ref("/sesiones/" + key);
+      var res = ref.remove();
+      res.then(e => {
+          console.log('Update exitoso');
+      })
+      .catch(err => {
+          console.log("error "+err.message);
+      });
+    }
   }
 
 
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
+  if(color['bw1'][4]!='0'){
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
+  }
+}
+
+
+/*
+var tutor;
+function setSesTutor(ui){
+  db.ref("/sesiones/").orderByChild("uidAlumno").equalTo(ui).on("child_added", function(ci){
+      if(ci != undefined){
+        var tr = document.createElement("tr");
+        db.ref("/tutores/").orderByChild("username").equalTo(ci.val().idTutor).on("child_added", function(tut){
+          var nom = document.createElement("td");
+          nom.innerHTML = tut.val().nombre;
+          console.log(tut.val().nombre);
+          tutor = tut.val().username;
+          tr.appendChild(nom);
+          db.ref("/materias/").orderByChild("id").equalTo(ci.val().materia).on("child_added", function(mate){
+            var m = document.createElement("td");
+            console.log(mate.val());
+            m.innerHTML = mate.val().nombre;
+            tr.appendChild(m);
+            var hr = document.createElement("td");
+            hr.innerHTML = ci.val().horario;
+            var dia = document.createElement("td");
+            dia.innerHTML = ci.val().fecha;
+            console.log(ci.val().fecha);
+            tr.appendChild(dia);
+            tr.appendChild(hr);
+
+            if(ci.val().aceptada == 1){
+              var btn = document.createElement("td");
+              btn.innerHTML = '<button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button><button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              tr.appendChild(btn);
+              tProxTutor.appendChild(tr);
+
+              tProxTutor.style.display = "block";
+            }else{
+              var btnAR = document.createElement("td");
+              btnAR.innerHTML = '<button style = "display:none" class="w3-btn w3-round-xxlarge btnColor">Aceptar</button> <button onclick= rechazar(' + ci.key +') class="w3-btn w3-round-xxlarge btnColor2">Cancelar</button>';
+              tr.appendChild(btnAR);
+              var btn = document.createElement("td");
+              btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
+              tr.appendChild(btn);
+              pendTutor.appendChild(tr);
+              pendTutor.style.display = "";
+            }
+            return;
+          });
+
+          return;
+        });
+      return;
+      }
+    });
+
+  }
+  */
+
+
+<<<<<<< HEAD
 
 // (function(){
 //   for(i of document.getElementsByClassName('color1')){
@@ -337,3 +374,5 @@ function aceptar(key){
 //   //  document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
 //   //}
 // }());
+=======
+>>>>>>> a83662ff1f79985ed872e9a2c07d892ea3676670

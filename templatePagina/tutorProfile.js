@@ -12,12 +12,17 @@ var reviews_table = document.getElementById("reviews");
 var db = firebase.database();
 var ref_horarios = {'Mon':[], 'Tue':[], 'Wed':[], 'Thu':[], 'Fri':[], 'Sat':[], 'Sun':[]};
 var btnEscribir = document.getElementById('btn_escribir');
+var writeZ = document.getElementById("write");
+var writeZone = document.getElementById("writeZone");
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
 var color = {};
+var resenas = [];
 
 var btnCita = document.getElementById('btn_cita');
+var btnMsj = document.getElementById('btn_mensaje');
 var btnAgendar = document.getElementById('btn_agendar');
+var btnEditar = document.getElementById('btn_editar');
 var dd_materias = document.getElementById('materias');
 
 var hours=["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
@@ -25,6 +30,7 @@ var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 var tab = document.getElementById("schTable");
 var row, col, t;
+var tutorUsername;
 
 // Sidebar elements
 var menu_name = document.getElementById("menu_name");
@@ -37,18 +43,22 @@ btnLogout.addEventListener('click', e=> {
     window.location.href = "index.html"
 });
 
+
 firebase.auth().onAuthStateChanged(function(user) {
+
     if (user) {
       uid = user.uid;
-      
+
       db.ref('usernames/'+uid).once('value', function(snap){
         console.log(snap.val());
         var username = snap.val().username;
         var estutor = snap.val().esTutor;
-        console.log(username);
-  
+        
+
         if(estutor === 1){
             btnProfile.href = 'tutorProfile.html';
+            
+            btnCita.style.display = "none";
             tutor = true;
             table_name = 'tutores';
         }else{
@@ -69,32 +79,32 @@ firebase.auth().onAuthStateChanged(function(user) {
                 var storage = firebase.storage();
                 var pathreference = storage.ref('profile_pictures/');
                 var manref = pathreference.child(img_path);
-                manref.getdownloadurl().then(function(url){
-                    var menu_pp = document.getelementbyid("menu_pp");
+                manref.getDownloadURL().then(function(url){
+                    var menu_pp = document.getElementById("menu_pp");
                     menu_pp.src = url;
                 });
             }
         });
-  
+
       });
     }
   });
-  
 
 // profile elements
 for(i=0; i<14; i++){
   row = document.createElement("tr");
   row.id = "at"+hours[i];
-  row.className = "w3-white";
+  row.style = "background-color:white";
   col =  document.createElement("td");
-  
+
   col.style.borderRight = "1px grey solid";
   t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
   col.appendChild(t);
   row.appendChild(col);
   for(j=0; j<7; j++){
     col =  document.createElement("td");
-    col.className = "w3-white w3-border";
+    col.className = "w3-border";
+    col.style = "background-color:white";
     col.id = hours[i]+days[j];
     row.appendChild(col);
   }
@@ -115,12 +125,19 @@ if(p.has('tutor')){
             console.log("The read failed: " + errorObject.code);
         });
     });
+
+    btnMsj.style.display = "none";
     btnAgendar.style.display = "none";
     btnCita.style.display = "none";
+    btnEditar.style.display = "block";
 }
 
 function load_profile(idT){
+
+    loadRevs(idT);
     db.ref("tutores/"+idT).on("value", function(snap){
+        console.log("id tutor:");
+        console.log(idT);
         var user = snap.val();
         nom.innerHTML = user.nombre + nom.innerHTML; //Cambiar por nombre
         mail.innerHTML = ' '+idT+'@itam.mx' //Cambiar por correo
@@ -144,9 +161,10 @@ function load_profile(idT){
         }
 
         var horarios = user.horarios;
+        console.log(horarios);
         for(let h of horarios){
             var cell = document.getElementById(h);
-            cell.className = cell.className.replace("w3-white", "w3-light-blue");
+            cell.style.backgroundColor = "#46AFDD";
             ref_horarios[h.slice(2)].push(h.slice(0,2));
         }
 
@@ -158,40 +176,8 @@ function load_profile(idT){
 
             manRef.getDownloadURL().then(function(url){
                 var img_holder = document.getElementById("img_holder");
-                var menu_pp = document.getElementById("menu_pp");
                 img_holder.src = url;
             });
-        }
-    });
-    
-    db.ref('reviews/'+idT).on("value", function(snap){
-        var storage = firebase.storage();
-        var reviews = snap.val();
-        console.log(reviews);
-        if(reviews){
-            for(let r of reviews){
-                var div0 = document.createElement('div');
-                div0.setAttribute('class', 'w3-panel w3-leftbar');
-
-                var divInfo = document.createElement('div');
-                divInfo.setAttribute('class', 'w3-row-padding w3-cell-row');
-
-                var divNom = document.createElement('div');
-                divNom.setAttribute('class', 'w3-rest');
-                var nom = document.createElement('h5');
-                nom.innerHTML = '<b>'+r.alumno+'</b>';
-                divNom.appendChild(nom);
-
-                var rev = document.createElement('p');
-                rev.innerHTML = r.review;
-      
-                divInfo.appendChild(divNom);
-                divInfo.appendChild(rev);
-
-                div0.appendChild(divInfo);
-
-                reviews_table.appendChild(div0);
-            }
         }
     });
 }
@@ -209,6 +195,44 @@ function changeMode(modeid) {
     console.log(document.getElementById(modeid));
     document.getElementById(modeid).setAttribute('style', 'display:block;')
 }
+
+
+
+var sendMailTo;
+btnMsj.addEventListener('click', e => {
+    console.log("Send mail to: " + p.get("tutor"));
+    sendMailTo = p.get("tutor");
+    document.getElementById('message').style.display='block';
+});
+
+function enviarMail(){
+    subject = document.getElementById("mailSub").value;
+    message = document.getElementById("mailText").value;
+
+    db.ref("usernames").orderByChild("username").equalTo(sendMailTo).on("child_added", function(u){
+      if(u.val().esTutor == 1){
+        db.ref("tutores/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+    });
+
+    document.getElementById('message').style.display='none';
+
+  }
 
 
 btnCita.addEventListener('click', e=>{
@@ -254,7 +278,7 @@ ddl_fechas.addEventListener('change', e => {
                             14: '14:00 - 15:00', 15:'15:00 - 16:00', 16:'16:00 - 17:00',
                             17: '17:00 - 18:00', 18:'18:00 - 19:00', 19:'19:00 - 20:00',
                             20: '20:00 - 21:00', 21:'21:00 - 22:00'};
-            
+
         var selectedDate = new Date(ddl_fechas.value);
         var fechaId = dia[selectedDate.getDay()];
         console.log(fechaId);
@@ -281,7 +305,7 @@ ddl_fechas.addEventListener('change', e => {
         }
     }else{
         remove_options();
-    }   
+    }
 });
 
 
@@ -291,6 +315,26 @@ btnAgendar.addEventListener('click', e => {
         upload_sesion(id);
     });
 });
+
+function toggleWrite(){
+    var m = writeZ.style.display;
+    writeZ.style.display = m == "none" ? "block" : "none";
+}
+
+function sendRev(){
+    if(writeZone.value.trim() == ""){return;}
+    var options = {weekday: 'short', day:'2-digit', month:'long'};
+    //uidAlumno:"321321"; 
+    uidAlumno = firebase.auth().currentUser.uid;
+    db.ref('tutores/'+p.get("tutor")+"/resenas/"+uidAlumno+"/").update({
+        fecha: new Date().toLocaleDateString('en-US', options),
+        text: writeZone.value.trim()
+    }).then( e => window.alert('Tu reseña fue registrada')).catch(err => {
+        window.alert('Ha ocurrido un error. Inténtalo de nuevo.');
+        console.log(fecha);
+    });
+    toggleWrite();
+}
 
 function upload_sesion(sesId){
     if(ddl.value === 'select' || ddl_fechas.value === 'select' || ddl_horarios.value === 'select'){
@@ -323,20 +367,59 @@ function remove_options(){
     }
 }
 
-(function(){
-  for(i of document.getElementsByClassName('color1')){
-    i.style.backgroundColor=color['c1'];
-  }
-  for(i of document.getElementsByClassName('color2')){
-    i.style.backgroundColor=color['c2'];
-  }
-  for(i of document.getElementsByClassName('bwcolor1')){
-    i.style.color=color['bw1'];
-  }
-  for(i of document.getElementsByClassName('bwcolor2')){
-    i.style.color=color['bw2'];
-  }
+
+function loadRevs(idT){
+    console.log("Seseñas"+idT);
+    db.ref("tutores/"+idT+"/resenas").once("value", function(snapshot) {
+        arr = snapshot.val();
+
+        for(i in arr){
+            var revName;
+            var h5name = document.createElement("h5");
+            db.ref("usernames/").once("value", function(snapshot) {
+                h5name.innerText = snapshot.val()[i]["username"];
+                console.log(revName)
+            })
+            console.log(revName)
+    
+            var dout = document.createElement("div");
+            dout.className = "w3-panel w3-leftbar";
+            var din = document.createElement("div");
+            din.className = "w3-row-padding w3-cell-row";
+            var dinn = document.createElement("div");
+            dinn.className = "w3-rest";
+            
+            
+            var pRev = document.createElement("p");
+            pRev.innerText = arr[i]["text"]
+            din.appendChild(h5name);
+    
+            dinn.appendChild(h5name);
+            din.appendChild(dinn);
+            din.appendChild(pRev);
+            dout.appendChild(din);
+    
+            document.getElementById("all_revs").appendChild(dout);
+        }
+    });
+}
+
+//color ={"c1":"#F00", "c2":"#0f0", "bw1":"#0f0", "bw2":"#ff0"};
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
   if(color['bw1'][4]!='0'){
-    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
   }
-}());
+}

@@ -41,7 +41,8 @@ firebase.auth().onAuthStateChanged(function(user) {
             menu_name.innerHTML = snap.val().nombre.split(" ")[0];
             var img_path = snap.val().pp_path;
             console.log(img_path);
-            if( img_path != 'none'){
+            if( img_path != "none"){
+                console.log("(?)");
                 var storage = firebase.storage();
                 var pathreference = storage.ref('profile_pictures/');
                 var manref = pathreference.child(img_path);
@@ -88,39 +89,42 @@ function get_values(id){
     // Get a database reference
     ref = db.ref("alumnos/"+id).on("value", function(snapshot) {
         var usr = snapshot.val();
-        var storage = firebase.storage();
-        var pathReference = storage.ref('profile_pictures/');
-        var manRef = pathReference.child(usr.pp_path);
-    
-        manRef.getDownloadURL().then(function(url){
-            var img_holder = document.getElementById("profile_img");
-            img_holder.src = url;
-        });
+        var img_path = usr.pp_path;
 
+        if(img_path != "none"){
+            var storage = firebase.storage();
+            var pathReference = storage.ref('profile_pictures/');
+            var manRef = pathReference.child(usr.pp_path);
+        
+            manRef.getDownloadURL().then(function(url){
+                var img_holder = document.getElementById("profile_img");
+                img_holder.src = url;
+            });
+        }
         document.getElementById("name").textContent = usr.nombre;
-        document.getElementById("carreras").textContent = "Carrera(s): "+usr.carrera;
+        document.getElementById("carreras").textContent = usr.carrera;
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
 
-    document.getElementById("username").textContent = id;
-    document.getElementById("email").textContent = "Correo: "+id+"@itam.mx";
+    document.getElementById("email").textContent = ""+id+"@itam.mx";
 }
 
-(function(){
-  for(i of document.getElementsByClassName('color1')){
-    i.style.backgroundColor=color['c1'];
-  }
-  for(i of document.getElementsByClassName('color2')){
-    i.style.backgroundColor=color['c2'];
-  }
-  for(i of document.getElementsByClassName('bwcolor1')){
-    i.style.color=color['bw1'];
-  }
-  for(i of document.getElementsByClassName('bwcolor2')){
-    i.style.color=color['bw2'];
-  }
+if(color){
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = '.color1 {background-color: #1 !important;}\
+                      .color2 {background-color: #2 !important;}\
+                      .bwcolor1 {color: #3 !important;}\
+                      .bwcolor2 {color: #4 !important;}'
+                      .replace("#1", color['c1'])
+                      .replace("#2", color["c2"])
+                      .replace("#3", color["bw1"])
+                      .replace("#4", color["bw2"]);
+      
+  document.getElementsByTagName('head')[0].appendChild(style);
   if(color['bw1'][4]!='0'){
-    document.getElementById('tutorMe').src += "img/logoTutorMeW.png"
+      var impath = document.getElementById('tutorMe').src;
+      document.getElementById('tutorMe').src = impath.replace(".png", "W.png");
   }
-}());
+}
