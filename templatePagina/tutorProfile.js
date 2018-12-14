@@ -45,6 +45,7 @@ btnLogout.addEventListener('click', e=> {
 
 
 firebase.auth().onAuthStateChanged(function(user) {
+
     if (user) {
       uid = user.uid;
 
@@ -89,7 +90,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   });
 
-
 // profile elements
 for(i=0; i<14; i++){
   row = document.createElement("tr");
@@ -133,6 +133,8 @@ if(p.has('tutor')){
 }
 
 function load_profile(idT){
+
+    loadRevs(idT);
     db.ref("tutores/"+idT).on("value", function(snap){
         console.log("id tutor:");
         console.log(idT);
@@ -176,36 +178,6 @@ function load_profile(idT){
                 var img_holder = document.getElementById("img_holder");
                 img_holder.src = url;
             });
-        }
-    });
-
-    db.ref('reviews/'+idT).on("value", function(snap){
-        var reviews = snap.val();
-        console.log(reviews);
-        if(reviews){
-            for(let r of reviews){
-                var div0 = document.createElement('div');
-                div0.setAttribute('class', 'w3-panel w3-leftbar');
-
-                var divInfo = document.createElement('div');
-                divInfo.setAttribute('class', 'w3-row-padding w3-cell-row');
-
-                var divNom = document.createElement('div');
-                divNom.setAttribute('class', 'w3-rest');
-                var nom = document.createElement('h5');
-                nom.innerHTML = '<b>'+r.alumno+'</b>';
-                divNom.appendChild(nom);
-
-                var rev = document.createElement('p');
-                rev.innerHTML = r.review;
-
-                divInfo.appendChild(divNom);
-                divInfo.appendChild(rev);
-
-                div0.appendChild(divInfo);
-
-                reviews_table.appendChild(div0);
-            }
         }
     });
 }
@@ -353,7 +325,7 @@ function sendRev(){
     if(writeZone.value.trim() == ""){return;}
     var options = {weekday: 'short', day:'2-digit', month:'long'};
     //uidAlumno:"321321"; 
-    uidAlumno: firebase.auth().currentUser.uid;
+    uidAlumno = firebase.auth().currentUser.uid;
     db.ref('tutores/'+p.get("tutor")+"/resenas/"+uidAlumno+"/").update({
         fecha: new Date().toLocaleDateString('en-US', options),
         text: writeZone.value.trim()
@@ -396,48 +368,40 @@ function remove_options(){
 }
 
 
-function loadRevs(){
-    db.ref("tutores/"+p.get("tutor")+"/resenas").once("value", function(snapshot) {
+function loadRevs(idT){
+    console.log("Seseñas"+idT);
+    db.ref("tutores/"+idT+"/resenas").once("value", function(snapshot) {
         arr = snapshot.val();
-    })
-    for(i in arr){
-        var revName;
-        var h5name = document.createElement("h5");
-        db.ref("usernames/").once("value", function(snapshot) {
-            h5name.innerText = snapshot.val()[i]["username"];
+
+        for(i in arr){
+            var revName;
+            var h5name = document.createElement("h5");
+            db.ref("usernames/").once("value", function(snapshot) {
+                h5name.innerText = snapshot.val()[i]["username"];
+                console.log(revName)
+            })
             console.log(revName)
-        })
-        console.log(revName)
-
-        var dout = document.createElement("div");
-        dout.className = "w3-panel w3-leftbar";
-        var din = document.createElement("div");
-        din.className = "w3-row-padding w3-cell-row";
-        var dinn = document.createElement("div");
-        dinn.className = "w3-rest";
-        
-        
-        var pRev = document.createElement("p");
-        pRev.innerText = arr[i]["text"]
-        din.appendChild(h5name);
-
-        dinn.appendChild(h5name);
-        din.appendChild(dinn);
-        din.appendChild(pRev);
-        dout.appendChild(din);
-
-        document.getElementById("all_revs").appendChild(dout);
-    }
-    /*
-    <div class="w3-panel w3-leftbar">
-        <div class="w3-row-padding w3-cell-row">
-          <div class="w3-rest">
-            <h5>Miguel Gonzalez Borja</h5>
-          </div>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent justo purus, mattis condimentum metus consectetur, laoreet condimentum dui. Quisque rutrum ante id dignissim pellentesque. Vivamus dignissim dui tortor, vel rhoncus risus tincidunt eget. Donec dictum et risus eget suscipit. Donec venenatis tristique porttitor.</p>
-        </div>
-    </div>
-    */
+    
+            var dout = document.createElement("div");
+            dout.className = "w3-panel w3-leftbar";
+            var din = document.createElement("div");
+            din.className = "w3-row-padding w3-cell-row";
+            var dinn = document.createElement("div");
+            dinn.className = "w3-rest";
+            
+            
+            var pRev = document.createElement("p");
+            pRev.innerText = arr[i]["text"]
+            din.appendChild(h5name);
+    
+            dinn.appendChild(h5name);
+            din.appendChild(dinn);
+            din.appendChild(pRev);
+            dout.appendChild(din);
+    
+            document.getElementById("all_revs").appendChild(dout);
+        }
+    });
 }
 
 //color ={"c1":"#F00", "c2":"#0f0", "bw1":"#0f0", "bw2":"#ff0"};

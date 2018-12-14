@@ -71,6 +71,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 var alumno;
 function setTutor(usrnm){
+  var startDate = new Date();
+  
   console.log(usrnm);
   tutAl.innerHTML = "Alumno";
   tutAlP.innerHTML = "Alumno";

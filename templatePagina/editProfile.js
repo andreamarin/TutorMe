@@ -299,13 +299,11 @@ function get_elements(){
 
 
     if(tutor == 1){
-        console.log("Id: "+id);
-        db.ref("tutores/"+id).on('value', function(snapshot){
+        db.ref("tutores/"+id).once('value', function(snapshot){
             var hours = ["08","09","10","11","12","13","14","15","16","17","18","19","20", "21"];
             var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
             
             var usr = snapshot.val();
-            console.log("Usuario: "+usr);
             materias = usr.materias;
             horarios = usr.horarios;
 
