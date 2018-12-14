@@ -17,6 +17,7 @@ var writeZone = document.getElementById("writeZone");
 var url = new URL(window.location);
 var p = new URLSearchParams(url.search.substring(1));
 var color = {};
+var resenas = [];
 
 var btnCita = document.getElementById('btn_cita');
 var btnAgendar = document.getElementById('btn_agendar');
@@ -304,11 +305,12 @@ function toggleWrite(){
 function sendRev(){
     if(writeZone.value.trim() == ""){return;}
     var options = {weekday: 'short', day:'2-digit', month:'long'};
-    db.ref('tutores/'+p.get("tutor")+"/resenas").set({
-        uidAlumno: firebase.auth().currentUser.uid,
+    //uidAlumno:"321321"; 
+    uidAlumno: firebase.auth().currentUser.uid;
+    db.ref('tutores/'+p.get("tutor")+"/resenas/"+uidAlumno+"/").update({
         fecha: new Date().toLocaleDateString('en-US', options),
         text: writeZone.value.trim()
-    }).then( e => window.alert('Tu sesión ya fue agendada')).catch(err => {
+    }).then( e => window.alert('Tu reseña fue registrada')).catch(err => {
         window.alert('Ha ocurrido un error. Inténtalo de nuevo.');
         console.log(fecha);
     });
@@ -346,6 +348,50 @@ function remove_options(){
     }
 }
 
+
+function loadRevs(){
+    db.ref("tutores/"+p.get("tutor")+"/resenas").once("value", function(snapshot) {
+        arr = snapshot.val();
+    })
+    for(i in arr){
+        var revName;
+        var h5name = document.createElement("h5");
+        db.ref("usernames/").once("value", function(snapshot) {
+            h5name.innerText = snapshot.val()[i]["username"];
+            console.log(revName)
+        })
+        console.log(revName)
+
+        var dout = document.createElement("div");
+        dout.className = "w3-panel w3-leftbar";
+        var din = document.createElement("div");
+        din.className = "w3-row-padding w3-cell-row";
+        var dinn = document.createElement("div");
+        dinn.className = "w3-rest";
+        
+        
+        var pRev = document.createElement("p");
+        pRev.innerText = arr[i]["text"]
+        din.appendChild(h5name);
+
+        dinn.appendChild(h5name);
+        din.appendChild(dinn);
+        din.appendChild(pRev);
+        dout.appendChild(din);
+
+        document.getElementById("all_revs").appendChild(dout);
+    }
+    /*
+    <div class="w3-panel w3-leftbar">
+        <div class="w3-row-padding w3-cell-row">
+          <div class="w3-rest">
+            <h5>Miguel Gonzalez Borja</h5>
+          </div>
+          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent justo purus, mattis condimentum metus consectetur, laoreet condimentum dui. Quisque rutrum ante id dignissim pellentesque. Vivamus dignissim dui tortor, vel rhoncus risus tincidunt eget. Donec dictum et risus eget suscipit. Donec venenatis tristique porttitor.</p>
+        </div>
+    </div>
+    */
+}
 
 //color ={"c1":"#F00", "c2":"#0f0", "bw1":"#0f0", "bw2":"#ff0"};
 if(color){
