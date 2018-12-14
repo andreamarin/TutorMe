@@ -29,7 +29,7 @@ var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     uid = user.uid;
-    
+
     db.ref('usernames/'+uid).once('value', function(snap){
       console.log(snap.val());
       var username = snap.val().username;
@@ -61,8 +61,8 @@ firebase.auth().onAuthStateChanged(function(user) {
               var storage = firebase.storage();
               var pathreference = storage.ref('profile_pictures/');
               var manref = pathreference.child(img_path);
-              manref.getdownloadurl().then(function(url){
-                  var menu_pp = document.getelementbyid("menu_pp");
+              manref.getDownloadURL().then(function(url){
+                  var menu_pp = document.getElementById("menu_pp");
                   menu_pp.src = url;
               });
           }
@@ -110,7 +110,7 @@ function setSesTutor(ui){
               btn.innerHTML = '<button onclick=showMail(tutor) class="w3-btn w3-round-xxlarge"><i class="material-icons">mail</i></button>';
               tr.appendChild(btn);
               pendTutor.appendChild(tr);
-              pendTutor.style.display = "block";
+              pendTutor.style.display = "";
             }
             return;
           });
@@ -250,6 +250,15 @@ function aceptar(key){
     db.ref("usernames").orderByChild("username").equalTo(sendMailTo).on("child_added", function(u){
       if(u.val().esTutor == 1){
         db.ref("tutores/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
           titulo: subject,
           mensaje: message,
           leido: 0

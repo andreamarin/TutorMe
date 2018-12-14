@@ -42,13 +42,13 @@ btnLogout.addEventListener('click', e=> {
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       uid = user.uid;
-      
+
       db.ref('usernames/'+uid).once('value', function(snap){
         console.log(snap.val());
         var username = snap.val().username;
         var estutor = snap.val().esTutor;
         console.log(username);
-  
+
         if(estutor === 1){
             btnProfile.href = 'tutorProfile.html';
             tutor = true;
@@ -71,17 +71,17 @@ firebase.auth().onAuthStateChanged(function(user) {
                 var storage = firebase.storage();
                 var pathreference = storage.ref('profile_pictures/');
                 var manref = pathreference.child(img_path);
-                manref.getdownloadurl().then(function(url){
-                    var menu_pp = document.getelementbyid("menu_pp");
+                manref.getDownloadURL().then(function(url){
+                    var menu_pp = document.getElementById("menu_pp");
                     menu_pp.src = url;
                 });
             }
         });
-  
+
       });
     }
   });
-  
+
 
 // profile elements
 for(i=0; i<14; i++){
@@ -89,7 +89,7 @@ for(i=0; i<14; i++){
   row.id = "at"+hours[i];
   row.style = "background-color:white";
   col =  document.createElement("td");
-  
+
   col.style.borderRight = "1px grey solid";
   t = document.createTextNode(hours[i]+":00 - "+hours[i+1]+":00");
   col.appendChild(t);
@@ -169,7 +169,7 @@ function load_profile(idT){
             });
         }
     });
-    
+
     db.ref('reviews/'+idT).on("value", function(snap){
         var storage = firebase.storage();
         var reviews = snap.val();
@@ -190,7 +190,7 @@ function load_profile(idT){
 
                 var rev = document.createElement('p');
                 rev.innerHTML = r.review;
-      
+
                 divInfo.appendChild(divNom);
                 divInfo.appendChild(rev);
 
@@ -260,7 +260,7 @@ ddl_fechas.addEventListener('change', e => {
                             14: '14:00 - 15:00', 15:'15:00 - 16:00', 16:'16:00 - 17:00',
                             17: '17:00 - 18:00', 18:'18:00 - 19:00', 19:'19:00 - 20:00',
                             20: '20:00 - 21:00', 21:'21:00 - 22:00'};
-            
+
         var selectedDate = new Date(ddl_fechas.value);
         var fechaId = dia[selectedDate.getDay()];
         console.log(fechaId);
@@ -287,7 +287,7 @@ ddl_fechas.addEventListener('change', e => {
         }
     }else{
         remove_options();
-    }   
+    }
 });
 
 
