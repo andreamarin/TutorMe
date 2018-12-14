@@ -65,7 +65,7 @@
       margin-bottom: 25px;
     }
   
-    #sidebar {
+    .sidebar {
     box-shadow: 0px 0 5px 0 rgb(185, 185, 185);
     }
     </style>
@@ -78,7 +78,7 @@
   </div>
   
   <!-- Sidebar/menu -->
-  <nav  id = "sidebar" class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <nav  id = "mySidebar" class="sidebar w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
     <div class="w3-container w3-row" style = "padding-bottom: 22px">
       <div class="w3-col s4">
         <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
@@ -123,21 +123,30 @@
   </div>
   </div>
 
-  <div class = "mode" id = "message" style="display:none">
+  <div class = "mode container" id = "message" style="display:none">
   <div class = "w3-panel w3-padding">
     <button class="w3-button w3-hover-none" onclick="changeMode('inbox')"><i class="material-icons">arrow_back</i></button>
-    <h5 id="tituloMensaje"><b>Sesion 1</b></h5>
-    <p id="nombreMensaje">Andrea Marin Alarcon</p>
+    <h5 id="tituloMensaje"><b></b></h5>
+    <p id="nombreMensaje"></p>
     <hr>
-    <p id="textoMensaje">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at nisl luctus, vehicula leo eu, congue lacus. Nunc pretium scelerisque nibh vel porta. Phasellus nibh arcu, porttitor a porta ac, hendrerit id justo. Praesent laoreet efficitur arcu, sed lacinia mauris vestibulum a. Aliquam est eros, condimentum semper egestas sit amet, consectetur eu metus. Mauris cursus sem eget tincidunt fermentum. Cras scelerisque fermentum volutpat. Integer arcu enim, accumsan sit amet hendrerit quis, convallis et metus.</p>
-    <button class="w3-button w3-light-green w3-round-xxlarge w3-right" onclick="toggleShow('reply')">Contestar</button>
+    <p id="textoMensaje"></p>
+    <button class="w3-button btnColor2 w3-round-xxlarge w3-right" onclick="toggleShow('reply')">Contestar</button>
   </div>
   <div id = "reply" class = "w3-panel w3-padding w3-hide" >
     <input id="replyT" class="w3-input w3-border" type="text" placeholder="Titulo:">
     <textarea id="replyM" class="w3-input w3-border" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
-    <button id="enviar" class="w3-button w3-light-green w3-round-xxlarge w3-right" >Enviar</button>
+    <button id="enviar" class="w3-button btnColor2 w3-round-xxlarge w3-right" >Enviar</button>
   </div>
   </div>
+
+  <div class = "mode container" id = "send" style="display: none">
+      <div id = "reply" class = "w3-panel w3-padding" >
+        <input id = "dest" class="w3-input w3-border" type="text" placeholder="A:">
+        <input id = "subject" class="w3-input w3-border" type="text" placeholder="Titulo:">
+        <textarea id = "mssg" class="w3-input w3-border" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
+        <button id = "enviar_mensaje" class="w3-button btnColor2 w3-round-xxlarge w3-right">Enviar</button>
+      </div>
+    </div>
 
 
 <!-- End page content -->

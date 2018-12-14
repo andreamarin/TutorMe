@@ -5,13 +5,6 @@ var db;
 var tutor, precio;
 var materias = [];
 var horarios = [];
-var btnLogout = document.getElementById('btn_logout');
-
-btnLogout.addEventListener('click', e=> {
-    firebase.auth().signOut();
-    window.location.href = "index.html"
-});
-
 
 
 (function() {
@@ -192,14 +185,6 @@ btnConfirm.addEventListener('click', e => {
     promise
         .then(user => {
             upload();
-            /*
-            var usr = firebase.auth().currentUser;
-            usr.sendEmailVerification().then(function() {
-                window.alert("Checa tu correo.")
-            }).catch(function(error) {
-                window.alert(error.message);
-            });
-            */
         })
         .catch(e => window.alert("Ha ocurrido un error, intenta de nuevo. "+e.message));
 });

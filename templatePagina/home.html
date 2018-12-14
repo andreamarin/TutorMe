@@ -34,7 +34,7 @@
   
     .btnColor{
       background-color:#82B807;
-      color: black;
+      color: white;
       padding: 10px;
       width: 100px;
       margin-left: 15px;
@@ -43,7 +43,7 @@
   
     .btnColor2{
       background-color: rgb(221, 105, 75);
-      color: black;
+      color: white;
       padding: 10px;
       width: 100px;
       margin-left: 15px;
@@ -78,7 +78,7 @@
       margin-bottom: 25px;
     }
   
-    #sidebar {
+    .sidebar {
     box-shadow:         0px 0 5px 0 rgb(185, 185, 185);
     }
     </style>
@@ -91,7 +91,7 @@
 </div>
 
 <!-- Sidebar/menu -->
-<nav  id = "sidebar" class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+<nav  id = "mySidebar" class=" sidebar w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row" style = "padding-bottom: 22px">
     <div class="w3-col s4">
       <img id = "menu_pp" src="img/avatar.png" class="w3-circle w3-margin-right" style="width:46px">
@@ -228,7 +228,7 @@
       <div class="w3-container w3-padding-24">
         <input id="mailSub" class="w3-input w3-border" type="text" placeholder="Titulo:">
         <textarea id = "mailText" class="w3-input w3-border" placeholder="Mensaje:" style="resize:none" rows="15"></textarea>
-        <button class="w3-button w3-light-green w3-round-xxlarge w3-right w3-margin-top" onclick="enviarMail()">Enviar</button>
+        <button class="w3-button btnColor w3-round-xxlarge w3-right w3-margin-top" onclick="enviarMail()">Enviar</button>
       </div>
 
     </div>

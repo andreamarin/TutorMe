@@ -15,6 +15,7 @@ var nombreMensaje  = document.getElementById("nombreMensaje");
 var tituloMensaje = document.getElementById("tituloMensaje");
 var textoMensaje = document.getElementById("textoMensaje");
 var btnLogout = document.getElementById('btn_logout');
+var btnEnviar = document.getElementById('enviar_mensaje');
 // Toggle between showing and hiding the sidebar, and add overlay effect
 
 btnLogout.addEventListener('click', e=> {
@@ -190,16 +191,42 @@ function showMessages(){
 sendReply.addEventListener('click', function(){
   console.log("holi");
    var replyTo = sendReply.value;
-  subject = document.getElementById("replyT").value;
-  message = document.getElementById("replyM").value;
-  console.log(replyTo);
-  db.ref("usernames").orderByKey().equalTo(replyTo).on("child_added", function(u){
+   console.log(replyTo);
+    subject = document.getElementById("replyT").value;
+    message = document.getElementById("replyM").value;
+   sendMessage(replyTo, subject, message, false);
+  
+});
+
+btnEnviar.addEventListener('click', e =>{
+  var sendTo = document.getElementById("dest").value.split("@")[0];
+  var subject = document.getElementById("subject").value;
+  var mssg = document.getElementById("mssg").value;
+  db.ref("usernames").orderByChild("username").equalTo(sendTo).on("value", function(s){
+    if(s.val() != null){
+      db.ref("usernames").orderByChild("username").equalTo(sendTo).on("child_added", function(u){
+        sendMessage(u.key, subject, mssg, true);
+      });
+    }else{
+      window.alert("No existe ese usuario.")
+    }
+  });
+});
+
+function sendMessage(user, subject, message, rep){
+  console.log(user);
+  db.ref("usernames").orderByKey().equalTo(user).on("child_added", function(u){
     if(u.val().esTutor == 1){
       db.ref("tutores/" + u.val().username + "/mensajes/" +  uid).set({
         titulo: subject,
         mensaje: message,
         leido: 0
-      }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+      }).then(e=>{
+        if(rep){ changeMode('inbox');}else{
+          toggleShow('reply');
+        }
+        window.alert('El mensaje fue enviado');
+      }).catch(err => {
         window.alert("Ha ocurrido un error. Intentalo de nuevo");
       });
     }
@@ -208,13 +235,18 @@ sendReply.addEventListener('click', function(){
         titulo: subject,
         mensaje: message,
         leido: 0
-      }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+      }).then(e=> {
+        if(rep){ changeMode('inbox');}else{
+          toggleShow('reply');
+        }
+        window.alert('El mensaje fue enviado');
+      }).catch(err => {
         window.alert("Ha ocurrido un error. Intentalo de nuevo");
       });
     }
   });
-toggleShow('reply');
-});
+
+}
 
 
 

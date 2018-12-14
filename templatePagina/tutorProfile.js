@@ -27,6 +27,7 @@ var days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 var tab = document.getElementById("schTable");
 var row, col, t;
+var tutorUsername;
 
 // Sidebar elements
 var menu_name = document.getElementById("menu_name");
@@ -38,6 +39,7 @@ btnLogout.addEventListener('click', e=> {
     firebase.auth().signOut();
     window.location.href = "index.html"
 });
+
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -164,14 +166,12 @@ function load_profile(idT){
 
             manRef.getDownloadURL().then(function(url){
                 var img_holder = document.getElementById("img_holder");
-                var menu_pp = document.getElementById("menu_pp");
                 img_holder.src = url;
             });
         }
     });
 
     db.ref('reviews/'+idT).on("value", function(snap){
-        var storage = firebase.storage();
         var reviews = snap.val();
         console.log(reviews);
         if(reviews){
@@ -215,6 +215,44 @@ function changeMode(modeid) {
     console.log(document.getElementById(modeid));
     document.getElementById(modeid).setAttribute('style', 'display:block;')
 }
+
+
+
+var sendMailTo;
+btnMsj.addEventListener('click', e => {
+    console.log("Send mail to: " + p.get("tutor"));
+    sendMailTo = p.get("tutor");
+    document.getElementById('message').style.display='block';
+});
+
+function enviarMail(){
+    subject = document.getElementById("mailSub").value;
+    message = document.getElementById("mailText").value;
+
+    db.ref("usernames").orderByChild("username").equalTo(sendMailTo).on("child_added", function(u){
+      if(u.val().esTutor == 1){
+        db.ref("tutores/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+      else{
+        db.ref("alumnos/" + sendMailTo+ "/mensajes/" +  uid).set({
+          titulo: subject,
+          mensaje: message,
+          leido: 0
+        }).then(e=> window.alert('El mensaje fue enviado')).catch(err => {
+          window.alert("Ha ocurrido un error. Intentalo de nuevo");
+        });
+      }
+    });
+
+    document.getElementById('message').style.display='none';
+
+  }
 
 
 btnCita.addEventListener('click', e=>{
